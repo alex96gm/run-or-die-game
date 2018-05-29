@@ -1,8 +1,13 @@
+html, body{
+    height: 100%;
+}
 
 .position-container {
     position: relative;
     display: flex;
     justify-content: center;
+    align-items: center;
+    height: 100%;
 }
   
 .position-container canvas {

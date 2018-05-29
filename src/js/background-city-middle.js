@@ -10,7 +10,7 @@ function BackgroundCity(ctx) {
   this.w = 3061;
   this.h = this.ctx.canvas.height;
 
-  this.vx = -1.8;
+  this.vx = -1.6;
 }
 
 BackgroundCity.prototype.draw = function() {
