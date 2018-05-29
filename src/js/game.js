@@ -39,15 +39,7 @@ function Game(canvasElement, canvasSky, canvasCityMiddle) {
   };
 
   Game.prototype.clear = function() {
-    this.ctx.clearRect(
-      0, 0, this.ctx.canvas.width, this.ctx.canvas.height
-    );
-
-    this.ctxSky.clearRect(
-      0, 0, this.ctxSky.canvas.width, this.ctxSky.canvas.height
-    );
-    
-    this.ctxCity.clearRect(
-      0, 0, this.ctxCity.canvas.width, this.ctxCity.canvas.height
-    );
+    this.bg.clearCanvas();
+    this.bgSky.clearCanvas();
+    this.bgCity.clearCanvas();
   };

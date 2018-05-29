@@ -1,6 +1,8 @@
 
 .position-container {
     position: relative;
+    display: flex;
+    justify-content: center;
 }
   
 .position-container canvas {

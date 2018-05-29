@@ -38,4 +38,10 @@ function Background(ctx) {
       this.x = 0;
     }
   };
+
+  Background.prototype.clearCanvas = function() {
+    this.ctx.clearRect(
+      0, 0, this.ctx.canvas.width, this.ctx.canvas.height
+    );
+  };
   

@@ -38,3 +38,9 @@ BackgroundCity.prototype.move = function() {
     this.x = 0;
   }
 };
+
+BackgroundCity.prototype.clearCanvas = function() {
+  this.ctx.clearRect(
+    0, 0, this.ctx.canvas.width, this.ctx.canvas.height
+  );
+};
