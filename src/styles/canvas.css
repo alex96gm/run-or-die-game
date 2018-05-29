@@ -1,4 +1,9 @@
 
-#canvas{
-    border: 1px solid black;
+.position-container {
+    position: relative;
+}
+  
+.position-container canvas {
+    position: absolute;
+    background-color: transparent;
 }

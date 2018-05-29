@@ -1,10 +1,6 @@
 window.onload = function() {
-    var canvas = document.createElement("canvas");
+    var canvasSky = document.getElementById("canvasbackgroundSky");
+    var canvasGame = document.getElementById("canvasGame");
   
-    canvas.width = 1700;
-    canvas.height = 600;
-  
-    document.body.prepend(canvas);
-  
-    new Game(canvas).start();
+    new Game(canvasGame,canvasSky).start();
   };

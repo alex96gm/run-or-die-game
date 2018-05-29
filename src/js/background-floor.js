@@ -2,15 +2,15 @@ function Background(ctx) {
     this.ctx = ctx;
   
     this.img = new Image();
-    this.img.src = "./../assets/sprite2.png";
-  
+    this.img.src = "./../assets/cityLoop.png";
+
     this.x = 0;
     this.y = 0;
   
     this.w = this.ctx.canvas.width;
     this.h = this.ctx.canvas.height;
   
-    this.vx = -1;
+    this.vx = -2;
   }
   
   Background.prototype.draw = function() {

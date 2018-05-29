@@ -1,7 +1,12 @@
-function Game(canvasElement) {
+function Game(canvasElement,canvasSky) {
     this.ctx = canvasElement.getContext("2d");
-  
+    //Background Sky
+    this.ctxSky = canvasElement.getContext("2d");
+    this.ctxSky.globalCompositeOperation = 'destination-over';
+
     this.bg = new Background(this.ctx);
+    this.bgSky = new BackgroundSky(this.ctxSky);
+    
   
     this.intervalId = null;
   
@@ -19,10 +24,12 @@ function Game(canvasElement) {
   
   Game.prototype.drawAll = function() {
     this.bg.draw();
+    this.bgSky.draw();
   };
   
   Game.prototype.moveAll = function() {
     this.bg.move();
+    this.bgSky.move();
   };
 
   Game.prototype.clear = function() {
