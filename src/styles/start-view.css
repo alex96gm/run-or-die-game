@@ -1,0 +1,57 @@
+@font-face {
+    font-family: 'blankaregular';
+    src: url('../fonts/blanka-regular-webfont.woff2') format('woff2'),
+         url('blanka-regular-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+.start-view{
+    font-family: 'blankaregular';
+    background-color: rgba(0, 0, 0, 0.7);
+    border: 1px solid red;
+    width: 1200px;
+    height: 500px;
+    z-index: 1;
+}
+.start-view div{  
+    color: red;
+}
+.title-game{
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.title-game h1:first-child{
+    font-size: 5em;
+}
+.title-game h1:last-child{
+    display: flex;
+    justify-content: center;
+    font-size: 3em;
+}
+    .image-character{
+        border:1px solid red;
+        width: 50;
+        height: 100px;
+    }
+.buttons-characters{
+    display: flex;
+    justify-content: space-around;
+    
+}
+
+.start-game-button{
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}
+.start-game-button button{
+    margin-top: 100px;
+}
+
+.selected-player{
+    border:3px solid blue;
+}

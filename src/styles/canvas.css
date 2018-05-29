@@ -8,9 +8,11 @@ html, body{
     justify-content: center;
     align-items: center;
     height: 100%;
+    overflow: hidden;
 }
   
 .position-container canvas {
     position: absolute;
     background-color: transparent;
 }
+
