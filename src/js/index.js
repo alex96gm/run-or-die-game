@@ -3,19 +3,21 @@ window.onload = function() {
     var canvasFloor = document.getElementById("canvasbackgroundFloor");
     var canvasCityMiddle = document.getElementById("canvasbackgroundCity");
     var canvasMoon = document.getElementById("canvasbackgroundMoon");
+    var canvasGame = document.getElementById("canvasGame");
 
     var selectPlayer = ''; 
 
     new BackGrounds(canvasFloor, canvasSky, canvasCityMiddle, canvasMoon).start();
 
-
+    $(".start-view").hide();
+    new Game(canvasGame).start();
     //new BackGrounds(canvasFloor, canvasSky, canvasCityMiddle, canvasMoon).start();
 
 
 
     $( ".start-game-button button" ).on( "click", function() {
       if(selectPlayer){   
-        $(".start-view").hide();
+        
       }
     });
 

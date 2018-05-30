@@ -37,7 +37,7 @@
 }
 
 .title-game h1:last-child{
-    top:268px;
+    top: calc(50% - 131px);
     position: absolute;
     left: calc(50% - 125px);
     font-size: 3em;
@@ -70,7 +70,7 @@
 .text-select-character{
     position: absolute;
     align-self: center;
-    animation: selectChar 5s infinite;
+    animation: selectChar 1s infinite;
 }
   
   @keyframes selectChar {
