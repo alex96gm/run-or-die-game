@@ -2,7 +2,7 @@ function BackgroundCity(ctx) {
   this.ctx = ctx;
 
   this.img = new Image();
-  this.img.src = "./../assets/loopCity2.png";
+  this.img.src = "./src/assets/loopCity2.png";
 
   this.x = 0;
   this.y = 0;

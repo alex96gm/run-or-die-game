@@ -2,7 +2,7 @@ function BackgroundMoon(ctx) {
     this.ctx = ctx;
   
     this.img = new Image();
-    this.img.src = "./../assets/skyloop.png";
+    this.img.src = "./src/assets/skyloop.png";
   
     this.x = 0;
     this.y = 0;

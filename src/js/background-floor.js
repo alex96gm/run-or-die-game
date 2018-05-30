@@ -2,7 +2,7 @@ function Background(ctx) {
     this.ctx = ctx;
   
     this.img = new Image();
-    this.img.src = "./../assets/cityLoop.png";
+    this.img.src = "./src/assets/cityLoop.png";
 
     this.x = 0;
     this.y = 0;
