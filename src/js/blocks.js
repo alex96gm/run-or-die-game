@@ -45,11 +45,9 @@ Blocks.prototype.draw = function () {
 
 Blocks.prototype.move = function() {
   this.x += this.vx;
-
-  if(this.x <= -this.w) {
-    //limpiar bloque cuando llegue al final de la pantalla
-  }
 };
+
+
 
 Blocks.prototype.clearCanvas = function () {
   this.ctx.clearRect(

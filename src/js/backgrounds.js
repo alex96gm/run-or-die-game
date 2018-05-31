@@ -37,6 +37,13 @@ function BackGrounds(canvasElement, canvasSky, canvasCityMiddle, canvasMoon) {
     this.bgCity.draw();
     this.bgMoon.draw();
   };
+  BackGrounds.prototype.stopAll = function() {
+    clearInterval(this.intervalId);
+    this.bg.stop();
+    this.bgSky.stop();
+    this.bgCity.stop();
+    this.bgMoon.stop();
+  };
   
   BackGrounds.prototype.moveAll = function() {
     this.bg.move();

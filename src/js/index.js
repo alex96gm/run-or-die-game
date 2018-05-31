@@ -4,19 +4,19 @@ window.onload = function() {
     var canvasCityMiddle = document.getElementById("canvasbackgroundCity");
     var canvasMoon = document.getElementById("canvasbackgroundMoon");
     var canvasGame = document.getElementById("canvasGame");
-
+    var backGrounds = new BackGrounds(canvasFloor, canvasSky, canvasCityMiddle, canvasMoon)
     var selectPlayer = ''; 
 
-    new BackGrounds(canvasFloor, canvasSky, canvasCityMiddle, canvasMoon).start();
+    //new BackGrounds(canvasFloor, canvasSky, canvasCityMiddle, canvasMoon).start();
 
     
     //
-    //new BackGrounds(canvasFloor, canvasSky, canvasCityMiddle, canvasMoon).start();
+    backGrounds.start();
 
-    $( ".start-game-button" ).on( "click", function() {
+    $( ".start-game" ).on( "click", function() {
       //if(selectPlayer){   
         $(".start-view").hide();
-        new Game(canvasGame).start();
+        new Game(canvasGame , backGrounds).start();
      // }
     });
 

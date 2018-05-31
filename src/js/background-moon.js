@@ -37,6 +37,14 @@ function BackgroundMoon(ctx) {
     if(this.x <= -this.w) {
       this.x = 0;
     }
+
+    
+  };
+
+  BackgroundMoon.prototype.stop = function() {
+    if(this.x <= -this.w) {
+      this.x = 0;
+    }
   };
 
   BackgroundMoon.prototype.clearCanvas = function() {
