@@ -3,15 +3,22 @@
 <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	 viewBox="0 0 515 158" style="enable-background:new 0 0 515 158;" xml:space="preserve">
 <style type="text/css">
+		@font-face {
+				font-family: 'blankaregular';
+				src: url('../fonts/blanka-regular-webfont.woff2') format('woff2'),
+						url('blanka-regular-webfont.woff') format('woff');
+				font-weight: normal;
+				font-style: normal;
+		}
 	.st0{fill:#FF0000;}
-	.st1{font-family:'Blanka-Regular';}
+	.st1{font-family:'blankaregular';}
 	.st2{font-size:80px;}
 	.st3{font-size:48px;}
 	.st4{fill:none;stroke:#FF0000;stroke-width:6;stroke-miterlimit:10;}
 </style>
 <font horiz-adv-x="1000">
 <!-- Copyright: Copyright 2018 Adobe System Incorporated. All rights reserved. -->
-<font-face font-family="Blanka-Regular" units-per-em="1000" underline-position="-100" underline-thickness="50"/>
+<font-face font-family="blankaregular" units-per-em="1000" underline-position="-100" underline-thickness="50"/>
 <missing-glyph horiz-adv-x="250"/>
 <glyph unicode="A" horiz-adv-x="660" d="M628,12l-304,782C321,802 307,802 304,794l-303,-782C-2,6 2,0 11,0l137,0C152,0 157,2 158,6l156,446l158,-446C473,2 478,0 481,0l138,0C626,0 631,6 628,12z"/>
 <glyph unicode="B" horiz-adv-x="582" d="M390,562C390,474 272,474 272,474l-120,0l0,183l120,0C272,657 390,658 390,562M543,571C543,806 272,800 272,800l-261,0C5,800 0,795 0,791l0,-466l152,0l120,0C272,325 401,331 401,237C401,160 322,146 272,146l-119,0l0,-146l119,0C326,0 554,10 554,233C554,233 559,357 432,400C493,425 543,478 543,571z"/>

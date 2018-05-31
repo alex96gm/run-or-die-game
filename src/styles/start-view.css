@@ -4,7 +4,6 @@
          url('blanka-regular-webfont.woff') format('woff');
     font-weight: normal;
     font-style: normal;
-
 }
 
 .start-view{
@@ -25,7 +24,7 @@
  justify-content: center;
 }
 
-.title-game img{
+.title-game object{
     padding-top: 20px;
     position: absolute;
     height: 150px;
