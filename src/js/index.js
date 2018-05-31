@@ -10,12 +10,13 @@ window.onload = function() {
     new BackGrounds(canvasFloor, canvasSky, canvasCityMiddle, canvasMoon).start();
 
     
-    //new Game(canvasGame).start();
+    //
     //new BackGrounds(canvasFloor, canvasSky, canvasCityMiddle, canvasMoon).start();
 
     $( ".start-game-button" ).on( "click", function() {
       //if(selectPlayer){   
         $(".start-view").hide();
+        new Game(canvasGame).start();
      // }
     });
 
