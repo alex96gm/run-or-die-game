@@ -46,11 +46,3 @@ Blocks.prototype.draw = function () {
 Blocks.prototype.move = function() {
   this.x += this.vx;
 };
-
-
-
-Blocks.prototype.clearCanvas = function () {
-  this.ctx.clearRect(
-    0, 0, this.ctx.canvas.width, this.ctx.canvas.height
-  );
-};

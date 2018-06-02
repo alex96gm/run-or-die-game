@@ -1,3 +1,5 @@
+var selectPlayer = '';
+
 window.onload = function() {
     var canvasSky = document.getElementById("canvasbackgroundSky");
     var canvasFloor = document.getElementById("canvasbackgroundFloor");
@@ -5,31 +7,30 @@ window.onload = function() {
     var canvasMoon = document.getElementById("canvasbackgroundMoon");
     var canvasGame = document.getElementById("canvasGame");
     var backGrounds = new BackGrounds(canvasFloor, canvasSky, canvasCityMiddle, canvasMoon)
-    var selectPlayer = ''; 
 
-    //new BackGrounds(canvasFloor, canvasSky, canvasCityMiddle, canvasMoon).start();
-
+    var canvasChooseCharacterRobot = document.getElementById("chooseRobot");
+    var chooseCharacter = new ChooseCharacter(canvasChooseCharacterRobot);
     
-    //
+    chooseCharacter.start();
     backGrounds.start();
 
     $( ".start-game" ).on( "click", function() {
       //if(selectPlayer){   
         $(".start-view").hide();
-        new Game(canvasGame , backGrounds).start();
+        new Game(canvasGame , backGrounds , selectPlayer).start();
      // }
     });
 
-    onKeyPress();
+    onKeyPress(chooseCharacter);
     onClickButtons();
   };
 
 
-function onKeyPress(){
+function onKeyPress(chooseCharacter){
     $(document).keydown(function (e) {
       switch(e.keyCode) {
         case 37:
-          selectLeftChracter();
+          selectLeftChracter(chooseCharacter);
           break;
         case 39:
         console.log("danjkdbakj")
@@ -39,20 +40,30 @@ function onKeyPress(){
     });
 };
 
-function selectLeftChracter(){
-  //$(".character-one-button").on( "click", function() {
+function selectLeftChracter(chooseCharacter){
     selectPlayer = 'robot';
+
     $('.character-one').addClass('selected-player');
     $('.character-two').removeClass('selected-player');
- // });
+
+    if($(".character-one").hasClass('selected-player')){
+      $( ".start-game" ).show("slow");
+    }
+    
+
 };
 
 function selectRighthracter(){
-  //$(".character-two-button").on( "click", function() {
-    selectPlayer = 'human';
+
+    //selectPlayer = 'human';
+
     $('.character-two').addClass('selected-player');
     $('.character-one').removeClass('selected-player');
- // });
+    
+    // if($(".character-two").hasClass('selected-player')){
+    //   $( ".start-game" ).show();
+    // }
+
 };
 
 function onClickButtons(){

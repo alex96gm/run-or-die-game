@@ -24,7 +24,9 @@
       <div class="title-game">
         <object type="image/svg+xml" data="./src/assets/RunOrDie.svg"></object>
       </div>
-      <div class="image-character character-one" style="cursor: pointer"></div>
+      <div class="image-character character-one" style="cursor: pointer">
+        <canvas id ="chooseRobot" width="155" height="155" class="canvasRobot"> </canvas>
+      </div>
       <div class="image-character character-two" style="cursor: pointer"></div>
 
       <div class="start-game-button">
@@ -61,14 +63,19 @@
   <script src="./src/js/index.js"></script>
   <script src="./src/js/game.js"></script>
 
+  <script src="./src/js/chooseCharacters/chooseCharacters.js"></script>
+  <script src="./src/js/chooseCharacters/robotMenuAnimate.js"></script>
+
   <script src="./src/js/blocks.js"></script>
   <script src="./src/js/score.js"></script>
 
-  <script src="./src/js/background-floor.js"></script>
-  <script src="./src/js/background-sky.js"></script>
-  <script src="./src/js/background-city-middle.js"></script>
-  <script src="./src/js/background-moon.js"></script>
-  <script src="./src/js/backgrounds.js"></script>
+  <script src="./src/js/players/robot.js"></script>
+
+  <script src="./src/js/backgrounds/background-floor.js"></script>
+  <script src="./src/js/backgrounds/background-sky.js"></script>
+  <script src="./src/js/backgrounds/background-city-middle.js"></script>
+  <script src="./src/js/backgrounds/background-moon.js"></script>
+  <script src="./src/js/backgrounds/backgrounds.js"></script>
 
 
 </body>

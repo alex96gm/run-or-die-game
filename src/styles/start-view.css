@@ -33,20 +33,20 @@
 
 .image-character{
     position: absolute;
-    
-    border:1px solid red;
-    width: 125px;
-    height: 200px;
+    border-radius: 25%;
+    border:5px solid red;
+    width: 155px;
+    height: 155px;
 }
 
 .character-one{
-    top: calc(50% - 100px);
-    left: calc(25% - 125px);
+    top: calc(50% - 75px);
+    left: calc(25% - 170px);
 }
 
 .character-two{
-    top: calc(50% - 100px);
-    right: calc(25% - 125px); 
+    top: calc(50% - 75px);
+    right: calc(25% - 170px); 
 }
 
 .buttons-characters{
@@ -55,9 +55,12 @@
     margin-top: 135px;
     
 }
+.start-game{
+    display: none;
+}
 
 .start-game-button{
-    height: 450px;
+    height: 480px;
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
@@ -65,7 +68,7 @@
 }
 
 .selected-player{
-    border:3px solid blue;
+    border:5px solid blue;
 }
 
 .text-select-character{
@@ -84,4 +87,9 @@
     100% {
         font-size: 1.25rem
     }
+  }
+
+  #chooseRobot {
+      width: 100%;
+      height: 100%;
   }
