@@ -95,7 +95,9 @@ Game.prototype.addListeners = function () {
           this.backGroundsElement.start();      
         } else{
           //console.log(this.state);
-          this.robot.jump();
+          if(this.selectPlayer === "robot"){
+            this.robot.jump();
+          }         
         }
         break;
     }

@@ -15,6 +15,7 @@
     height: 500px;
     z-index: 1;
 }
+
 .start-view div{  
     color: red;
 }
@@ -30,6 +31,31 @@
     height: 150px;
     
 }
+.selectedCharacterText{
+    position: absolute;
+    top: calc(50% - 130px);
+    /* animation: selectChar 1S infinite; */
+}
+
+.selectedLeft{
+    left: calc(75% + 65px);
+}
+
+.selectedRight{
+    left: calc(25% - 119px);  
+}
+  
+  @keyframes selectChar {
+    0% {
+        font-size: 1.25rem
+    }
+    50%{
+        font-size: 1.50rem
+    }
+    100% {
+        font-size: 1.25rem
+    }
+  }
 
 .image-character{
     position: absolute;
@@ -37,6 +63,16 @@
     border:5px solid red;
     width: 155px;
     height: 155px;
+}
+
+.image-character:hover{
+    border:none;
+    box-shadow: 0px 0px 37px 14px rgba(255,0,0,1);
+}
+
+.selected-player{
+    border:none;
+    box-shadow: 0px 0px 37px 14px rgba(255,0,0,1);
 }
 
 .character-one{
@@ -55,9 +91,9 @@
     margin-top: 135px;
     
 }
-.start-game{
+/* .ih-item.circle.effect2.left_to_right{
     display: none;
-}
+} */
 
 .start-game-button{
     height: 480px;
@@ -67,9 +103,7 @@
     align-items: center;
 }
 
-.selected-player{
-    border:5px solid blue;
-}
+
 
 .text-select-character{
     position: absolute;
@@ -93,3 +127,6 @@
       width: 100%;
       height: 100%;
   }
+
+
+    

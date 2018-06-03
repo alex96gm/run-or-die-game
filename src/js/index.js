@@ -16,7 +16,8 @@ window.onload = function() {
 
     $( ".start-game" ).on( "click", function() {
       //if(selectPlayer){   
-        $(".start-view").hide();
+        $(".start-view").slideToggle();
+        
         new Game(canvasGame , backGrounds , selectPlayer).start();
      // }
     });
@@ -46,8 +47,11 @@ function selectLeftChracter(chooseCharacter){
     $('.character-one').addClass('selected-player');
     $('.character-two').removeClass('selected-player');
 
+    $('.selectedCharacterText').addClass('selectedRight');
+    $('.selectedCharacterText').removeClass('selectedLeft');
+
     if($(".character-one").hasClass('selected-player')){
-      $( ".start-game" ).show("slow");
+      $(".ih-item.circle.effect2.left_to_right").show();
     }
     
 
@@ -55,15 +59,13 @@ function selectLeftChracter(chooseCharacter){
 
 function selectRighthracter(){
 
-    //selectPlayer = 'human';
+    selectPlayer = 'human';
 
     $('.character-two').addClass('selected-player');
     $('.character-one').removeClass('selected-player');
-    
-    // if($(".character-two").hasClass('selected-player')){
-    //   $( ".start-game" ).show();
-    // }
 
+    $('.selectedCharacterText').addClass('selectedLeft');
+    $('.selectedCharacterText').removeClass('selectedRight');
 };
 
 function onClickButtons(){

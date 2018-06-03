@@ -1,0 +1,33 @@
+.game-over-view{
+    position: relative;
+    font-family: 'blankaregular';
+    background-color: rgba(0, 0, 0, 0.7);
+    border: 1px solid red;
+    width: 1200px;
+    height: 500px;
+    z-index: 1;
+}
+
+.game-over{
+    color: red;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    font-size: 70px;
+}
+
+.score{
+    color: red;
+    display: flex;
+    justify-content: center;
+    font-size: 48px;
+}
+
+.buttons{
+    display: flex;
+    justify-content: space-around;
+}
+
+.game-over-h3{
+    padding: 95px 0 0 0;
+}

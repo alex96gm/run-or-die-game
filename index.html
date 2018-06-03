@@ -14,18 +14,22 @@
   <link rel="stylesheet" type="text/css" href="./src/styles/iHover.css">
   <link rel="stylesheet" type="text/css" href="./src/styles/canvas.css">
   <link rel="stylesheet" type="text/css" href="./src/styles/start-view.css">
+  <link rel="stylesheet" type="text/css" href="./src/styles/high-score-button.css">
+  <link rel="stylesheet" type="text/css" href="./src/styles/game-over-view.css">
   <title>Run or die</title>
 </head>
 
 <body>
   <div class="position-container">
     <div class="start-view">
-
       <div class="title-game">
         <object type="image/svg+xml" data="./src/assets/RunOrDie.svg"></object>
       </div>
-      <div class="image-character character-one" style="cursor: pointer">
-        <canvas id ="chooseRobot" width="155" height="155" class="canvasRobot"> </canvas>
+      <div class="selectedCharacterText selectedLeft"><span>Selected</span></div>
+      <div>
+        <div class="image-character character-one" style="cursor: pointer">
+          <canvas id ="chooseRobot" width="155" height="155" class="canvasRobot"> </canvas>
+        </div>
       </div>
       <div class="image-character character-two" style="cursor: pointer"></div>
 
@@ -43,17 +47,43 @@
           </a>
         </div>
       </div>
+      <div class="sim-button button28"><span>HIGH SCORES</span></div>
     </div>
     <canvas id="canvasbackgroundMoon" width="1200" height="500"> </canvas>
     <canvas id="canvasbackgroundSky" width="1200" height="500"> </canvas>
     <canvas id="canvasbackgroundCity" width="1200" height="500"> </canvas>
     <canvas id="canvasbackgroundFloor" width="1200" height="500"> </canvas>
     <canvas id="canvasGame" width="1200" height="500"> </canvas>
+
+    <div class="game-over-view">
+      <div class="game-over">GAME OVER</div>
+      <div class="score">SCORE: <span class="score-number">3000</span></div>
+      <div class="buttons">
+        <div class="ih-item circle effect13 top_to_bottom"><a>
+          <div class="img"><img src="./src/assets/labelHover.jpg" alt="img"></div>
+            <div class="info">
+              <div class="info-back">
+                <h3 class="game-over-h3">GO TO MENU</h3>
+              </div>
+            </div>
+          </a></div>
+          <div class="sim-button-game-over button28"><span>HIGH SCORES</span></div>
+          <div class="ih-item circle effect13 top_to_bottom"><a>
+            <div class="img"><img src="./src/assets/labelHover.jpg" alt="img"></div>
+            <div class="info">
+              <div class="info-back">
+                <h3 class="game-over-h3" >TRY AGAIN</h3>
+              </div>
+            </div>
+          </a></div>
+      </div>
+      
+    </div>
   </div>
   <!-- Optional JavaScript -->
   <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-    crossorigin="anonymous"></script>
+  
+  <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
     crossorigin="anonymous"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
