@@ -4,8 +4,8 @@
         height: 50px;
         font-size: 24px;
         width: 20%;
-        top: calc(-50% + 38%);
-        right: calc(-77%);
+        bottom: 11%;
+        left: 78%;
         text-align: center;
         cursor: pointer;
 }
@@ -27,8 +27,8 @@
     height: 50px;
     font-size: 24px;
     width: 20%;
-    bottom: calc(12%); 
-    left: calc(77%);
+    bottom: 4%;
+    left: 78%;
     text-align: center;
     cursor: pointer;
 }
