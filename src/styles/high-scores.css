@@ -16,6 +16,10 @@
     justify-content: center;
     font-size: 70px;
 }
+.table-div{
+    display: flex;
+    justify-content: center;
+}
 
 .table{
     width: 50%;
