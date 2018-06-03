@@ -1,6 +1,5 @@
 function RobotMenu(ctx) {
     this.ctx = ctx;
-    console.log(this.ctx)
     this.w = this.ctx.canvas.width;
     this.h = this.ctx.canvas.height;
 
@@ -32,10 +31,10 @@ RobotMenu.prototype.draw = function () {
     this.drawCount++;
 };
 
-RobotMenu.prototype.animate = function() {
+RobotMenu.prototype.animate = function () {
     if (this.drawCount % this.img.animateEvery === 0) {
         this.img.frameIndex++;
-        
+
         var frame = this.img.frameIndex.toString().padStart(3, ['0']);
         this.img.src = "./src/assets/spritesRobot/walk/walk_" + frame + ".png";
 

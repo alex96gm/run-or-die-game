@@ -5,7 +5,7 @@ function Game(canvasElement, backGroundsElement, selectPlayer) {
   this.state = 'gameStopped';
   this.framesPassed = 0;
   this.selectPlayer = selectPlayer;
-  console.log('robot');
+
   this.blocks = [
     new Blocks(this.ctx, 80, 420, 400, './src/assets/block-long.png'),
     new Blocks(this.ctx, 700, 420, 400, './src/assets/block-long.png'),
@@ -40,19 +40,23 @@ Game.prototype.start = function () {
 };
 
 Game.prototype.finish = function () {
-  this.intervalId = null;
+  clearInterval(this.intervalId);
+  this.ctx.clearRect(
+    0, 0, this.ctx.canvas.width, this.ctx.canvas.height
+  );
+  return { player: this.selectPlayer, score: this.scoreObject.score }
 };
 
 
-Game.prototype.drawCharacter = function(){
-  if(this.selectPlayer === "robot"){
+Game.prototype.drawCharacter = function () {
+  if (this.selectPlayer === "robot") {
     this.robot.draw();
   }
-  
+
 }
 
-Game.prototype.animateCharacter = function(){
-  if(this.selectPlayer === "robot"){
+Game.prototype.animateCharacter = function () {
+  if (this.selectPlayer === "robot") {
     this.robot.animate(this.state);
   }
 }
@@ -75,10 +79,10 @@ Game.prototype.generateBlocks = function () {
   }
 
   this.blocks.forEach(element => {
-    element.draw();   
-    if(this.state !=='gameStopped'){
-      element.move();    
-    } 
+    element.draw();
+    if (this.state !== 'gameStopped') {
+      element.move();
+    }
   });
 };
 
@@ -94,14 +98,13 @@ Game.prototype.addListeners = function () {
   $(document).keydown(function (event) {
     switch (event.keyCode) {
       case 32:
-        if(this.state === 'gameStopped'){
+        if (this.state === 'gameStopped') {
           this.state = 'gameMove';
-          this.backGroundsElement.start();      
-        } else{
-          //console.log(this.state);
-          if(this.selectPlayer === "robot"){
+          this.backGroundsElement.start();
+        } else {
+          if (this.selectPlayer === "robot") {
             this.robot.jump();
-          }         
+          }
         }
         break;
     }

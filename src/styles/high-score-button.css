@@ -22,7 +22,7 @@
 }
 
 .go-to-menu-high-score {
-    position: absolute;
+    position: absolute !important;
     line-height: 50px;
     height: 50px;
     font-size: 24px;

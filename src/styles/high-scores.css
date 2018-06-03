@@ -17,11 +17,6 @@
     font-size: 70px;
 }
 
-.table-div{
-    display: flex;
-    justify-content: center;
-}
-
 .table{
     width: 50%;
 }
@@ -32,10 +27,6 @@
     text-align: center;
 }
 
-tbody {
-    height: 534px;
-    overflow-y: auto;
-}
 
 .table > tbody  tr td{
     color :white;

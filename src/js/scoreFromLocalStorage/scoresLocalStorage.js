@@ -6,33 +6,43 @@ function getScore() {
     return highScores;
 }
 
-function setScore( player , score){
-
-    var objToPush = { player: player, date: getDate(), score:score};
+function setScore(player, score) {
+    var highScores = [];
+    var objToPush = { player: player, date: getDate(), score: score };
 
     var highScoresJson = localStorage.getItem('highScores');
-    var highScores = JSON.parse(highScoresJson);
+    var highScoresObject = JSON.parse(highScoresJson);
 
-    highScores.push(objToPush);
-    
+    if (highScoresObject) {
+        highScoresObject.forEach(element => {
+            highScores.push(element)
+        });
+        highScores.push(objToPush);
+    } else {
+        highScores.push(objToPush);
+    }
+
+    highScores = highScores.sort(function (item1, item2) {
+        return item2.score - item1.score;
+    });
+
     localStorage.setItem('highScores', JSON.stringify(highScores));
-
 }
 
-function getDate(){
+function getDate() {
     var today = new Date();
     var dd = today.getDate();
-    var mm = today.getMonth()+1; //January is 0!
+    var mm = today.getMonth() + 1; //January is 0!
     var yyyy = today.getFullYear();
-    
-    if(dd<10) {
-        dd = '0'+dd
-    } 
-    
-    if(mm<10) {
-        mm = '0'+mm
-    } 
-    
+
+    if (dd < 10) {
+        dd = '0' + dd
+    }
+
+    if (mm < 10) {
+        mm = '0' + mm
+    }
+
     today = dd + '/' + mm + '/' + yyyy;
     return today;
 }

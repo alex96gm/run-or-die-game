@@ -1,79 +1,78 @@
 var selectPlayer = '';
 var game = null;
 
-window.onload = function() {
-    var canvasSky = document.getElementById("canvasbackgroundSky");
-    var canvasFloor = document.getElementById("canvasbackgroundFloor");
-    var canvasCityMiddle = document.getElementById("canvasbackgroundCity");
-    var canvasMoon = document.getElementById("canvasbackgroundMoon");
-    var canvasGame = document.getElementById("canvasGame");
-    var canvasChooseCharacterRobot = document.getElementById("chooseRobot");
+window.onload = function () {
+  var canvasSky = document.getElementById("canvasbackgroundSky");
+  var canvasFloor = document.getElementById("canvasbackgroundFloor");
+  var canvasCityMiddle = document.getElementById("canvasbackgroundCity");
+  var canvasMoon = document.getElementById("canvasbackgroundMoon");
+  var canvasGame = document.getElementById("canvasGame");
+  var canvasChooseCharacterRobot = document.getElementById("chooseRobot");
 
-    var backGrounds = new BackGrounds(canvasFloor, canvasSky, canvasCityMiddle, canvasMoon)
-    var chooseCharacter = new ChooseCharacter(canvasChooseCharacterRobot);
-    
-    chooseCharacter.start();
-    backGrounds.start();
+  var backGrounds = new BackGrounds(canvasFloor, canvasSky, canvasCityMiddle, canvasMoon)
+  var chooseCharacter = new ChooseCharacter(canvasChooseCharacterRobot);
 
-    $( ".start-game" ).on( "click", function() {
-      if(selectPlayer){   
-        $(".start-view").slideToggle(function(){
-          $(".div-canvas-game").slideToggle();
-        });
-        
-        game = new Game(canvasGame , backGrounds , selectPlayer);
-        game.start();
-     }
-    });
+  chooseCharacter.start();
+  backGrounds.start();
 
-    onKeyPress(chooseCharacter);
-    onClickButtons();
-  };
+  $(".start-game").on("click", function () {
+    if (selectPlayer) {
+      $(".start-view").slideToggle(function () {
+        $(".div-canvas-game").slideToggle();
+      });
 
+      game = new Game(canvasGame, backGrounds, selectPlayer);
+      game.start();
+    }
+  });
 
-function onKeyPress(chooseCharacter){
-    $(document).keydown(function (e) {
-      switch(e.keyCode) {
-        case 37:
-          selectLeftChracter(chooseCharacter);
-          break;
-        case 39:
-        console.log("danjkdbakj")
-          selectRighthracter();
-          break;
-      }
-    });
+  onKeyPress(chooseCharacter);
+  onClickButtons();
 };
 
-function selectLeftChracter(chooseCharacter){
-    selectPlayer = 'robot';
 
-    $('.character-one').addClass('selected-player');
-    $('.character-two').removeClass('selected-player');
-
-    $('.selectedCharacterText').addClass('selectedRight');
-    $('.selectedCharacterText').removeClass('selectedLeft');
+function onKeyPress(chooseCharacter) {
+  $(document).keydown(function (e) {
+    switch (e.keyCode) {
+      case 37:
+        selectLeftChracter(chooseCharacter);
+        break;
+      case 39:
+        selectRighthracter();
+        break;
+    }
+  });
 };
 
-function selectRighthracter(){
+function selectLeftChracter(chooseCharacter) {
+  selectPlayer = 'robot';
 
-    selectPlayer = 'human';
+  $('.character-one').addClass('selected-player');
+  $('.character-two').removeClass('selected-player');
 
-    $('.character-two').addClass('selected-player');
-    $('.character-one').removeClass('selected-player');
-
-    $('.selectedCharacterText').addClass('selectedLeft');
-    $('.selectedCharacterText').removeClass('selectedRight');
+  $('.selectedCharacterText').addClass('selectedRight');
+  $('.selectedCharacterText').removeClass('selectedLeft');
 };
 
-function onClickButtons(){
+function selectRighthracter() {
+
+  selectPlayer = 'human';
+
+  $('.character-two').addClass('selected-player');
+  $('.character-one').removeClass('selected-player');
+
+  $('.selectedCharacterText').addClass('selectedLeft');
+  $('.selectedCharacterText').removeClass('selectedRight');
+};
+
+function onClickButtons() {
   selectCharacter();
   menuToHighScore();
   highScoreToMenu();
   gameToMenu();
 };
 
-function selectCharacter(){
+function selectCharacter() {
   $('.character-one').click(function (e) {
     selectLeftChracter();
   });
@@ -83,41 +82,48 @@ function selectCharacter(){
   });
 };
 
-function menuToHighScore(){
-  $('.sim-button.button28').on( "click", function() {
-    $(".start-view").slideToggle(function(){
+function menuToHighScore() {
+  $('.sim-button.button28').on("click", function () {
+    $(".start-view").slideToggle(function () {
       $(".high-scores").slideToggle();
       setScoreTable(getScore());
     });
   });
 }
 
-function highScoreToMenu(){
-  $('.go-to-menu-high-score.button28').on( "click", function() {
-    $(".high-scores").slideToggle(function(){
+function highScoreToMenu() {
+  $('.go-to-menu-high-score.button28').on("click", function () {
+    $(".high-scores").slideToggle(function () {
       $(".start-view").slideToggle();
     });
   });
 }
 
-function gameToMenu(){
-  $('.go-to-menu-canvas.button28').on( "click", function() {
-    game.finish();
+function gameToMenu() {
+  $('.go-to-menu-canvas.button28').on("click", function () {
+    $(".div-canvas-game").slideToggle(function () {
+      $(".start-view").slideToggle();
+    });
+    var scores = game.finish();
+    setScore(scores.player, scores.score)
   });
 }
 
-function setScoreTable(scores){
-  $("tbody").empty();
-  scores.forEach(element => {
-    var $td1 = $("<td></td>").text(element.player); 
-    var $td2 = $("<td></td>").text(element.date); 
-    var $td3 = $("<td></td>").text(element.score);
-    var tr = $("<tr></tr>");
-    
-    var $scoreRow = tr.append($td1, $td2, $td3);
-    $('tbody').append($scoreRow)
-  });
+function setScoreTable(scores) {
+  if (scores) {
+    $("tbody").empty();
+    scores.forEach((element, i) => {
+      var $td0 = $("<td></td>").text(i + 1);
+      var $td1 = $("<td></td>").text(element.player);
+      var $td2 = $("<td></td>").text(element.date);
+      var $td3 = $("<td></td>").text(element.score);
+      var tr = $("<tr></tr>");
+
+      var $scoreRow = tr.append($td0, $td1, $td2, $td3);
+      $('tbody').append($scoreRow)
+    });
+  }
+
 }
 
 
-  
