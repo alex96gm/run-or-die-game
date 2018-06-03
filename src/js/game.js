@@ -39,6 +39,10 @@ Game.prototype.start = function () {
   }.bind(this), 16);
 };
 
+Game.prototype.finish = function () {
+  this.intervalId = null;
+};
+
 
 Game.prototype.drawCharacter = function(){
   if(this.selectPlayer === "robot"){

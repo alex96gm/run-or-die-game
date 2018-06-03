@@ -1,0 +1,8 @@
+.div-canvas-game{
+    display: none;
+    position: relative;
+    font-family: 'blankaregular';
+    width: 1200px;
+    height: 500px;
+    z-index: 1;
+}

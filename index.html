@@ -16,6 +16,8 @@
   <link rel="stylesheet" type="text/css" href="./src/styles/start-view.css">
   <link rel="stylesheet" type="text/css" href="./src/styles/high-score-button.css">
   <link rel="stylesheet" type="text/css" href="./src/styles/game-over-view.css">
+  <link rel="stylesheet" type="text/css" href="./src/styles/high-scores.css">
+  <link rel="stylesheet" type="text/css" href="./src/styles/canvas-game-view.css">
   <title>Run or die</title>
 </head>
 
@@ -49,11 +51,15 @@
       </div>
       <div class="sim-button button28"><span>HIGH SCORES</span></div>
     </div>
+
     <canvas id="canvasbackgroundMoon" width="1200" height="500"> </canvas>
     <canvas id="canvasbackgroundSky" width="1200" height="500"> </canvas>
     <canvas id="canvasbackgroundCity" width="1200" height="500"> </canvas>
     <canvas id="canvasbackgroundFloor" width="1200" height="500"> </canvas>
     <canvas id="canvasGame" width="1200" height="500"> </canvas>
+    <div class="div-canvas-game">
+      <div class="go-to-menu-canvas button28"><span>GO TO MENU</span></div>
+    </div>
 
     <div class="game-over-view">
       <div class="game-over">GAME OVER</div>
@@ -76,8 +82,26 @@
               </div>
             </div>
           </a></div>
+      </div>   
+    </div>
+
+    <div class="high-scores">
+      <div class="high-score">HIGH SCORES</div>
+      <div class="table-div">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">PLAYER</th>
+              <th scope="col">DATE</th>
+              <th scope="col">SCORE</th>
+            </tr>
+          </thead>
+          <tbody>
+            
+          </tbody>
+        </table>
       </div>
-      
+      <div class="go-to-menu-high-score  button28"><span>BACK TO MENU</span></div>
     </div>
   </div>
   <!-- Optional JavaScript -->
@@ -106,6 +130,8 @@
   <script src="./src/js/backgrounds/background-city-middle.js"></script>
   <script src="./src/js/backgrounds/background-moon.js"></script>
   <script src="./src/js/backgrounds/backgrounds.js"></script>
+
+  <script type="text/javascript" src="./src/js/scoreFromLocalStorage/scoresLocalStorage.js"></script>
 
 
 </body>

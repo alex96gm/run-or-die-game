@@ -1,4 +1,4 @@
-.game-over-view{
+.high-scores{
     display: none;
     position: relative;
     font-family: 'blankaregular';
@@ -9,7 +9,7 @@
     z-index: 1;
 }
 
-.game-over{
+.high-score{
     color: red;
     padding: 20px;
     display: flex;
@@ -17,18 +17,28 @@
     font-size: 70px;
 }
 
-.score{
-    color: red;
+.table-div{
     display: flex;
     justify-content: center;
-    font-size: 48px;
 }
 
-.buttons{
-    display: flex;
-    justify-content: space-around;
+.table{
+    width: 50%;
 }
 
-.game-over-h3{
-    padding: 95px 0 0 0;
+.table > thead > tr th{
+    color :red;
+    font-size: 28px;
+    text-align: center;
+}
+
+tbody {
+    height: 534px;
+    overflow-y: auto;
+}
+
+.table > tbody  tr td{
+    color :white;
+    font-size: 18px;
+    text-align: center;
 }
