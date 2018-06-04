@@ -111,19 +111,18 @@ function gameToMenu() {
 
 function setScoreTable(scores) {
   if (scores) {
-    $("tbody").empty();
+    $(".body").empty();
     scores.forEach((element, i) => {
-      var $td0 = $("<td></td>").text(i + 1);
-      var $td1 = $("<td></td>").text(element.player);
-      var $td2 = $("<td></td>").text(element.date);
-      var $td3 = $("<td></td>").text(element.score);
-      var tr = $("<tr></tr>");
+      var $td0 = $("<div></div>").text(i + 1);
+      var $td1 = $("<div></div>").text(element.player);
+      var $td2 = $("<div></div>").text(element.date);
+      var $td3 = $("<div></div>").text(element.score);
+      var $div = $("<div></div>");
 
-      var $scoreRow = tr.append($td0, $td1, $td2, $td3);
-      $('tbody').append($scoreRow)
+      var $scoreRow = $div.append($td0, $td1, $td2, $td3);
+      $('.body').append($scoreRow)
     });
   }
-
 }
 
 

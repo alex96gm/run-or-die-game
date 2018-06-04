@@ -46,7 +46,7 @@
 }
 
 .button28 {
-    color: rgba(255,255,255,1);
+    color: red;
     transition: all 0.3s;
     position: relative;
 }
