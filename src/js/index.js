@@ -11,6 +11,7 @@ window.onload = function () {
 
   var backGrounds = new BackGrounds(canvasFloor, canvasSky, canvasCityMiddle, canvasMoon)
   var chooseCharacter = new ChooseCharacter(canvasChooseCharacterRobot);
+  var localStorageScore = new LocalStorageScore();
 
   chooseCharacter.start();
   backGrounds.start();
@@ -27,7 +28,7 @@ window.onload = function () {
   });
 
   onKeyPress(chooseCharacter);
-  onClickButtons();
+  onClickButtons(localStorageScore);
 };
 
 
@@ -65,11 +66,11 @@ function selectRighthracter() {
   $('.selectedCharacterText').removeClass('selectedRight');
 };
 
-function onClickButtons() {
+function onClickButtons(localStorageScore) {
   selectCharacter();
-  menuToHighScore();
+  menuToHighScore(localStorageScore);
   highScoreToMenu();
-  gameToMenu();
+  gameToMenu(localStorageScore);
 };
 
 function selectCharacter() {
@@ -82,11 +83,12 @@ function selectCharacter() {
   });
 };
 
-function menuToHighScore() {
+function menuToHighScore(localStorageScore) {
   $('.sim-button.button28').on("click", function () {
     $(".start-view").slideToggle(function () {
       $(".high-scores").slideToggle();
-      setScoreTable(getScore());
+      console.log(localStorageScore.getScore());
+      setScoreTable(localStorageScore.getScore());
     });
   });
 }
@@ -99,13 +101,13 @@ function highScoreToMenu() {
   });
 }
 
-function gameToMenu() {
+function gameToMenu(localStorageScore) {
   $('.go-to-menu-canvas.button28').on("click", function () {
     $(".div-canvas-game").slideToggle(function () {
       $(".start-view").slideToggle();
     });
     var scores = game.finish();
-    setScore(scores.player, scores.score)
+    localStorageScore.setScore(scores.player, scores.score)
   });
 }
 

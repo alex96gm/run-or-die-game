@@ -1,20 +1,18 @@
 
-function getScore() {
+function LocalStorageScore(){ }
 
-    var highScoresJson = localStorage.getItem('highScores');
-    var highScores = JSON.parse(highScoresJson);
-    return highScores;
+
+LocalStorageScore.prototype.getScore = function() {
+    return JSON.parse(localStorage.getItem('highScores'));;
 }
 
-function setScore(player, score) {
+LocalStorageScore.prototype.setScore = function (player, score) {
     var highScores = [];
     var objToPush = { player: player, date: getDate(), score: score };
+    var scoreObject = JSON.parse(localStorage.getItem('highScores'));
 
-    var highScoresJson = localStorage.getItem('highScores');
-    var highScoresObject = JSON.parse(highScoresJson);
-
-    if (highScoresObject) {
-        highScoresObject.forEach(element => {
+    if (scoreObject) {
+        scoreObject.forEach(element => {
             highScores.push(element)
         });
         highScores.push(objToPush);
@@ -34,6 +32,9 @@ function getDate() {
     var dd = today.getDate();
     var mm = today.getMonth() + 1; //January is 0!
     var yyyy = today.getFullYear();
+    var hh = today.getHours();
+    var mm = today.getMinutes();
+    var ss =today.getSeconds();
 
     if (dd < 10) {
         dd = '0' + dd
@@ -43,7 +44,7 @@ function getDate() {
         mm = '0' + mm
     }
 
-    today = dd + '/' + mm + '/' + yyyy;
+    today = dd + '/' + mm + '/' + yyyy /*+ ' ' + hh + ':'+ mm + ':' + ss*/;
     return today;
 }
 
