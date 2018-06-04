@@ -31,6 +31,12 @@ window.onload = function () {
   onClickButtons(localStorageScore);
 };
 
+function onClickButtons(localStorageScore) {
+  selectCharacter();
+  menuToHighScore(localStorageScore);
+  highScoreToMenu();
+  gameToMenu(localStorageScore);
+};
 
 function onKeyPress(chooseCharacter) {
   $(document).keydown(function (e) {
@@ -51,6 +57,7 @@ function selectLeftChracter(chooseCharacter) {
   $('.character-one').addClass('selected-player');
   $('.character-two').removeClass('selected-player');
 
+  $('.selectedCharacterText').show();
   $('.selectedCharacterText').addClass('selectedRight');
   $('.selectedCharacterText').removeClass('selectedLeft');
 };
@@ -62,16 +69,12 @@ function selectRighthracter() {
   $('.character-two').addClass('selected-player');
   $('.character-one').removeClass('selected-player');
 
+  $('.selectedCharacterText').show();
   $('.selectedCharacterText').addClass('selectedLeft');
   $('.selectedCharacterText').removeClass('selectedRight');
 };
 
-function onClickButtons(localStorageScore) {
-  selectCharacter();
-  menuToHighScore(localStorageScore);
-  highScoreToMenu();
-  gameToMenu(localStorageScore);
-};
+
 
 function selectCharacter() {
   $('.character-one').click(function (e) {
@@ -87,7 +90,6 @@ function menuToHighScore(localStorageScore) {
   $('.sim-button.button28').on("click", function () {
     $(".start-view").slideToggle(function () {
       $(".high-scores").slideToggle();
-      console.log(localStorageScore.getScore());
       setScoreTable(localStorageScore.getScore());
     });
   });
