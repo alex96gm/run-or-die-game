@@ -1,58 +1,47 @@
-var selectPlayer = '';
-var game = null;
-
 window.onload = function () {
-  var canvasSky = document.getElementById("canvasbackgroundSky");
-  var canvasFloor = document.getElementById("canvasbackgroundFloor");
-  var canvasCityMiddle = document.getElementById("canvasbackgroundCity");
-  var canvasMoon = document.getElementById("canvasbackgroundMoon");
-  var canvasGame = document.getElementById("canvasGame");
-  var canvasChooseCharacterRobot = document.getElementById("chooseRobot");
-
-  var backGrounds = new BackGrounds(canvasFloor, canvasSky, canvasCityMiddle, canvasMoon)
-  var chooseCharacter = new ChooseCharacter(canvasChooseCharacterRobot);
-  var localStorageScore = new LocalStorageScore();
-
-  chooseCharacter.start();
-  backGrounds.start();
-
-  $(".start-game").on("click", function () {
-    if (selectPlayer) {
-      $(".start-view").slideToggle(function () {
-        $(".div-canvas-game").slideToggle();
-      });
-
-      game = new Game(canvasGame, backGrounds, selectPlayer);
-      game.start();
-    }
-  });
-
-  onKeyPress(chooseCharacter);
-  onClickButtons(localStorageScore);
+  var indexGame = new IndexGame();
+  indexGame.setKeyBoardListeners();
+  indexGame.setClickListeners();
+  indexGame.backGrounds.start();
+  indexGame.chooseCharacter.start();
 };
 
-function onClickButtons(localStorageScore) {
-  selectCharacter();
-  menuToHighScore(localStorageScore);
-  highScoreToMenu();
-  gameToMenu(localStorageScore);
-};
+function IndexGame (){
+  this.selectPlayer = '';
+  this.game = null;
+  this.canvas = {
+    canvasSky : document.getElementById("canvasbackgroundSky"),
+    canvasFloor : document.getElementById("canvasbackgroundFloor"),
+    canvasCityMiddle : document.getElementById("canvasbackgroundCity"),
+    canvasMoon : document.getElementById("canvasbackgroundMoon"),
+    canvasGame : document.getElementById("canvasGame"),
+    canvasChooseCharacterRobot : document.getElementById("chooseRobot")
+  };
+  this.backGrounds = new BackGrounds(
+    this.canvas.canvasFloor, 
+    this.canvas.canvasSky, 
+    this.canvas.canvasCityMiddle, 
+    this.canvas.canvasMoon
+  );
+  this.chooseCharacter = new ChooseCharacter(this.canvas.canvasChooseCharacterRobot);
+  this.localStorageScore = new LocalStorageScore();
+}
 
-function onKeyPress(chooseCharacter) {
+IndexGame.prototype.setKeyBoardListeners = function(){
   $(document).keydown(function (e) {
     switch (e.keyCode) {
       case 37:
-        selectLeftChracter(chooseCharacter);
+        this.selectLeftChracter();
         break;
       case 39:
-        selectRighthracter();
+        this.selectRightcharacter();
         break;
     }
-  });
-};
+  }.bind(this));
+}
 
-function selectLeftChracter(chooseCharacter) {
-  selectPlayer = 'robot';
+IndexGame.prototype.selectLeftChracter = function () {
+  this.selectPlayer = 'robot';
 
   $('.character-one').addClass('selected-player');
   $('.character-two').removeClass('selected-player');
@@ -62,10 +51,9 @@ function selectLeftChracter(chooseCharacter) {
   $('.selectedCharacterText').removeClass('selectedLeft');
 };
 
-function selectRighthracter() {
-
-  selectPlayer = 'human';
-
+IndexGame.prototype.selectRightcharacter = function() {
+  this.selectPlayer = 'human';
+  
   $('.character-two').addClass('selected-player');
   $('.character-one').removeClass('selected-player');
 
@@ -74,28 +62,63 @@ function selectRighthracter() {
   $('.selectedCharacterText').removeClass('selectedRight');
 };
 
+IndexGame.prototype.setClickListeners = function(){
 
+  this.startGame();
+  
+  this.selectCharacter();
 
-function selectCharacter() {
+  this.highScoreToMenu();
+
+  this.menuToHighScore(this.localStorageScore);
+  this.gameOverToHighScore(this.localStorageScore);
+
+  this.gameToMenu(this.localStorageScore);
+  this.gameOverToMenu();
+
+  this.gameOverTryAgain();
+}
+
+IndexGame.prototype.startGame = function(){
+  $(".start-game").on("click", function () {
+    if (this.selectPlayer) {
+      $(".start-view").slideToggle(function () {
+        $(".div-canvas-game").slideToggle();
+      });
+
+      this.game = new Game(
+        this.canvas.canvasGame, 
+        this.backGrounds, 
+        this.selectPlayer, 
+        this.localStorageScore
+      );
+
+      this.game.start();
+    }
+  }.bind(this));
+}
+
+IndexGame.prototype.selectCharacter = function() { 
   $('.character-one').click(function (e) {
-    selectLeftChracter();
-  });
+    this.selectLeftChracter();
+  }.bind(this));
 
   $('.character-two').click(function (e) {
-    selectRighthracter();
-  });
+    this.selectRightcharacter();
+  }.bind(this));
 };
 
-function menuToHighScore(localStorageScore) {
+IndexGame.prototype.menuToHighScore = function(){
   $('.sim-button.button28').on("click", function () {
     $(".start-view").slideToggle(function () {
       $(".high-scores").slideToggle();
-      setScoreTable(localStorageScore.getScore());
-    });
-  });
+      this.setScoreTable(this.localStorageScore.getScore());
+    }.bind(this));
+  }.bind(this));
 }
 
-function highScoreToMenu() {
+
+IndexGame.prototype.highScoreToMenu = function() {
   $('.go-to-menu-high-score.button28').on("click", function () {
     $(".high-scores").slideToggle(function () {
       $(".start-view").slideToggle();
@@ -103,17 +126,52 @@ function highScoreToMenu() {
   });
 }
 
-function gameToMenu(localStorageScore) {
+IndexGame.prototype.gameToMenu = function() {
   $('.go-to-menu-canvas.button28').on("click", function () {
     $(".div-canvas-game").slideToggle(function () {
       $(".start-view").slideToggle();
     });
-    var scores = game.finish();
-    localStorageScore.setScore(scores.player, scores.score)
+    var scores = this.game.finish();
+    this.localStorageScore.setScore(scores.player, scores.score);
+  }.bind(this));
+}
+
+
+IndexGame.prototype.gameOverToHighScore = function() {
+  $('.sim-button-game-over').on("click", function () {
+    $(".game-over-view").slideToggle(function () {
+      $(".high-scores").slideToggle();
+      this.setScoreTable(this.localStorageScore.getScore());
+    }.bind(this));
+  }.bind(this));
+}
+
+IndexGame.prototype.gameOverToMenu = function() {
+  $('.go-to-menu').on("click", function () {
+    $(".game-over-view").slideToggle(function () {
+      $(".start-view").slideToggle();
+    });
   });
 }
 
-function setScoreTable(scores) {
+IndexGame.prototype.gameOverTryAgain = function() {
+  $('.try-again').on("click", function () {
+    $(".game-over-view").slideToggle(function () {
+        $(".div-canvas-game").slideToggle();
+      });
+
+      this.game = new Game(
+        this.canvas.canvasGame, 
+        this.backGrounds, 
+        this.selectPlayer, 
+        this.localStorageScore
+      );
+      console.log(this.game)
+      this.game.start();
+  }.bind(this));
+}
+
+IndexGame.prototype.setScoreTable = function(scores) {
   if (scores) {
     $(".body").empty();
     scores.forEach((element, i) => {

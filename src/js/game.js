@@ -1,4 +1,4 @@
-function Game(canvasElement, backGroundsElement, selectPlayer) {
+function Game(canvasElement, backGroundsElement, selectPlayer , localStorage) {
   this.ctx = canvasElement.getContext("2d");
   this.backGroundsElement = backGroundsElement;
   this.intervalId = null;
@@ -15,7 +15,7 @@ function Game(canvasElement, backGroundsElement, selectPlayer) {
   ]
 
   this.scoreObject = new Score(this.ctx);
-
+  this.localStorage = localStorage;
   this.robot = new Robot(this.ctx, this.state);
 
   this.addListeners();
@@ -35,6 +35,10 @@ Game.prototype.start = function () {
 
     this.drawCharacter();
     this.animateCharacter();
+
+    
+    this.checkGameOver();
+
     //this.moveAll();
   }.bind(this), 16);
 };
@@ -110,4 +114,20 @@ Game.prototype.addListeners = function () {
     }
   }.bind(this));
 };
+
+Game.prototype.checkGameOver = function(){
+  if(this.robot.checkGameOver()){
+    this.gameOver();
+  }
+}
+
+Game.prototype.gameOver = function(){
+  var scores = this.finish(); 
+  $(".score-number").text(scores.score);
+  this.localStorage.setScore(scores.player, scores.score);
+  $(".div-canvas-game").slideToggle(function () {
+    $(".game-over-view").slideToggle();
+  }); 
+}
+
 

@@ -32,9 +32,9 @@ function getDate() {
     var dd = today.getDate();
     var mm = today.getMonth() + 1; //January is 0!
     var yyyy = today.getFullYear();
-    var hh = today.getHours();
-    var mm = today.getMinutes();
-    var ss =today.getSeconds();
+    var hour = today.getHours();
+    var min = today.getMinutes();
+    var sec =today.getSeconds();
 
     if (dd < 10) {
         dd = '0' + dd
@@ -44,7 +44,7 @@ function getDate() {
         mm = '0' + mm
     }
 
-    today = dd + '/' + mm + '/' + yyyy /*+ ' ' + hh + ':'+ mm + ':' + ss*/;
+    today = dd + '/' + mm + '/' + yyyy /*+ ' ' + hour + ':'+ min + ':' + sec*/;
     return today;
 }
 

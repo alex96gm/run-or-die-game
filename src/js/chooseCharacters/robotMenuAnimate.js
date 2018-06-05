@@ -7,8 +7,8 @@ function RobotMenu(ctx) {
     this.y = 0;
 
     this.img = new Image();
-    this.img.src = "./src/assets/spritesRobot/running/running_000.png";
-    this.img.frames = 19;
+    this.img.src = "./src/assets/spritesRobot/walk/walk_000.png";
+    this.img.frames = 21;
     this.img.frameIndex = 0;
 
     this.img.animateEvery = 2;
@@ -30,7 +30,7 @@ RobotMenu.prototype.draw = function () {
 RobotMenu.prototype.animate = function () {
     if (this.drawCount % this.img.animateEvery === 0) {  
         var frame = this.img.frameIndex.toString().padStart(3, ['0']);
-        this.img.src = "./src/assets/spritesRobot/running/running_" + frame + ".png";
+        this.img.src = "./src/assets/spritesRobot/walk/walk_" + frame + ".png";
 
         this.img.frameIndex++;
 
