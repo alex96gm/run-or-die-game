@@ -120,7 +120,7 @@ Robot.prototype.jumpAnimate = function () {
 }
 
 Robot.prototype.checkGameOver = function(){
-    if(this.y < this.ctx.canvas.hight){
+    if(this.y < 0){
         return true;
     }
 }

@@ -1,12 +1,13 @@
 window.onload = function () {
-  var indexGame = new IndexGame();
-  indexGame.setKeyBoardListeners();
-  indexGame.setClickListeners();
-  indexGame.backGrounds.start();
-  indexGame.chooseCharacter.start();
+    var indexGame = new IndexGame();
+    indexGame.setKeyBoardListeners();
+    indexGame.setClickListeners();
+    indexGame.backGrounds.start();
+    indexGame.chooseCharacter.start();
 };
 
 function IndexGame (){
+  this.menuSong = new MenuSong();
   this.selectPlayer = '';
   this.game = null;
   this.canvas = {
@@ -25,6 +26,7 @@ function IndexGame (){
   );
   this.chooseCharacter = new ChooseCharacter(this.canvas.canvasChooseCharacterRobot);
   this.localStorageScore = new LocalStorageScore();
+  
 }
 
 IndexGame.prototype.setKeyBoardListeners = function(){
@@ -90,17 +92,21 @@ IndexGame.prototype.startGame = function(){
         this.canvas.canvasGame, 
         this.backGrounds, 
         this.selectPlayer, 
-        this.localStorageScore
+        this.localStorageScore,
+        this.menuSong
       );
 
       this.game.start();
+      this.menuSong.stopSongMenu();
     }
   }.bind(this));
 }
 
 IndexGame.prototype.selectCharacter = function() { 
+
   $('.character-one').click(function (e) {
     this.selectLeftChracter();
+    this.menuSong.playSongMenu();
   }.bind(this));
 
   $('.character-two').click(function (e) {
@@ -131,6 +137,8 @@ IndexGame.prototype.gameToMenu = function() {
     $(".div-canvas-game").slideToggle(function () {
       $(".start-view").slideToggle();
     });
+    
+    this.menuSong.playSongMenu();
     var scores = this.game.finish();
     this.localStorageScore.setScore(scores.player, scores.score);
   }.bind(this));
@@ -158,15 +166,16 @@ IndexGame.prototype.gameOverTryAgain = function() {
   $('.try-again').on("click", function () {
     $(".game-over-view").slideToggle(function () {
         $(".div-canvas-game").slideToggle();
+        
       });
-
+      this.menuSong.stopSongMenu();
       this.game = new Game(
         this.canvas.canvasGame, 
         this.backGrounds, 
         this.selectPlayer, 
-        this.localStorageScore
+        this.localStorageScore,
+        this.menuSong
       );
-      console.log(this.game)
       this.game.start();
   }.bind(this));
 }

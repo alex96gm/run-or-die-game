@@ -5,7 +5,19 @@ function Score(ctx) {
   this.y = 50;
 
   this.score = 0;
+  this.intervalId = null;
 }
+
+Score.prototype.start = function () {
+
+  this.intervalId = setInterval(function () {
+  
+    this.draw();
+
+  }.bind(this), 16);
+};
+
+
 
 Score.prototype.draw = function () {
   this.ctx.font = "40px blankaregular";
