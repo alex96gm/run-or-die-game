@@ -106,7 +106,6 @@ IndexGame.prototype.selectCharacter = function() {
 
   $('.character-one').click(function (e) {
     this.selectLeftChracter();
-    this.menuSong.playSongMenu();
   }.bind(this));
 
   $('.character-two').click(function (e) {

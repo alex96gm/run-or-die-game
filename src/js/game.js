@@ -131,7 +131,7 @@ Game.prototype.checkGameOver = function(){
 Game.prototype.gameOver = function(){
 
   var scores = this.finish(); 
-  this.menuSong.stopSongMenu();
+  this.menuSong.playSongMenu();
   $(".score-number").text(scores.score);
   this.localStorage.setScore(scores.player, scores.score);
   $(".div-canvas-game").slideToggle(function () {
