@@ -129,9 +129,19 @@ Game.prototype.checkGameOver = function(){
 }
 
 Game.prototype.gameOver = function(){
-
-  var scores = this.finish(); 
   this.menuSong.playSongMenu();
+  var scores = this.finish();
+  
+  if(!this.localStorage.getScore()){
+    $(".label-score").text('NEW HIGH SCORE: ');
+  }else{
+    if(scores.score > this.localStorage.getScore()[0].score){
+      $(".label-score").text('NEW HIGH SCORE: ');
+    }else{
+      $(".label-score").text('SCORE: ');
+    }
+  }
+  
   $(".score-number").text(scores.score);
   this.localStorage.setScore(scores.player, scores.score);
   $(".div-canvas-game").slideToggle(function () {

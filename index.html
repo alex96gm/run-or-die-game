@@ -13,7 +13,7 @@
     crossorigin="anonymous">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
     crossorigin="anonymous">
-  <link rel="stylesheet" type="text/css" href="./src/styles/iHover.css">
+  <link rel="stylesheet" type="text/css" href="./src/styles/iHover.min.css">
   <link rel="stylesheet" type="text/css" href="./src/styles/canvas.css">
   <link rel="stylesheet" type="text/css" href="./src/styles/start-view.css">
   
@@ -73,9 +73,9 @@
 
     <div class="game-over-view">
       <div class="game-over">GAME OVER</div>
-      <div class="score">SCORE: <span class="score-number">3000</span></div>
+      <div class="score"><span class="label-score"></span><span class="score-number">3000</span></div>
       <div class="buttons">
-        <div class="ih-item circle effect13 top_to_bottom go-to-menu"><a>
+        <div class="ih-item circle effect13 top_to_bottom go-to-menu" style="cursor: pointer;"><a>
           <div class="img"><img src="./src/assets/labelHover.jpg" alt="img"></div>
             <div class="info">
               <div class="info-back">
@@ -84,7 +84,7 @@
             </div>
           </a></div>
           <div class="sim-button-game-over button28"><span>HIGH SCORES</span></div>
-          <div class="ih-item circle effect13 top_to_bottom try-again"><a>
+          <div class="ih-item circle effect13 top_to_bottom try-again" style="cursor: pointer;"><a>
             <div class="img"><img src="./src/assets/labelHover.jpg" alt="img"></div>
             <div class="info">
               <div class="info-back">
