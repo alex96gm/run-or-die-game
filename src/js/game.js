@@ -41,7 +41,7 @@ Game.prototype.start = function () {
 
     this.drawCharacter();
     this.animateCharacter();
-
+    this.checkColisions();
     
     this.checkGameOver();
 
@@ -61,7 +61,7 @@ Game.prototype.finish = function () {
 
 Game.prototype.drawCharacter = function () {
   if (this.selectPlayer === "robot") {
-    this.robot.draw();
+    this.robot.draw(this.blocks);
   }
 
 }
@@ -147,6 +147,30 @@ Game.prototype.gameOver = function(){
   $(".div-canvas-game").slideToggle(function () {
     $(".game-over-view").slideToggle();
   }); 
+}
+
+Game.prototype.checkColisions = function(){
+  var isOnPlatform = true;
+  this.blocks.forEach((block,i) => {
+    
+    if(
+      (this.robot.y <= block.y) && 
+      (this.robot.y + this.robot.h <= block.y) && 
+      (this.robot.x + this.robot.w >= block.x) && 
+      (this.robot.x <= block.x + block.w + this.robot.w)){
+        //character in platform
+        //debugger
+        isOnPlatform = true
+    }else{
+      isOnPlatform = false
+    }
+    
+    if(!isOnPlatform){  
+     
+    }
+    
+  });
+  
 }
 
 
