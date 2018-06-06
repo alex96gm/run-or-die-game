@@ -28,8 +28,8 @@ Robot.prototype.checkColisions = function(blocks){
       if(
         (this.y <= block.y) && 
         (this.y + this.h <= block.y) && 
-        (this.x + this.w >= block.x) && 
-        (this.x <= block.x + block.w + this.w)){
+        (this.x + this.w - 100 >= block.x) && 
+        (this.x + 100  <= block.x + block.w)){
           //character in platform
           //debugger
           isOnPlatform = true
@@ -38,10 +38,10 @@ Robot.prototype.checkColisions = function(blocks){
     });
 
     if(isOnPlatform){  
-        vy = 0;
+        this.vy = 0
     }else{
         //this.vy -= this.v;  
-        this.vy -= this.g;
+        this.vy -= this.g ;
     }
 }
 
@@ -53,7 +53,6 @@ Robot.prototype.draw = function (blocks) {
         this.w,
         this.h
     );
-
     
     this.drawCountIdle++;
 
