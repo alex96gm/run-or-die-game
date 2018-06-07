@@ -14,6 +14,10 @@ function Game(canvasElement, backGroundsElement, selectPlayer, localStorage, men
     new Blocks(this.ctx, 1050, 180, 133, './src/assets/block-small.png'),
   ]
 
+  this.coins = [
+    new Coins(this.ctx)
+  ]
+
   this.scoreObject = new Score(this.ctx);
   this.localStorage = localStorage;
 
@@ -39,6 +43,7 @@ Game.prototype.start = function () {
 
     this.generateBlocks();
     this.deleteBlocks();
+    this.generateCoins();
 
     if (this.state === 'gameMove') {
       this.scoreObject.draw();
@@ -51,7 +56,6 @@ Game.prototype.start = function () {
 
     this.checkGameOver();
 
-    //this.moveAll();
   }.bind(this), 16);
 };
 
@@ -97,6 +101,12 @@ Game.prototype.generateBlocks = function () {
     }
   });
 };
+
+Game.prototype.generateCoins = function(){
+  this.coins.forEach(element => {
+    element.draw();
+  });
+}
 
 Game.prototype.deleteBlocks = function () {
   this.blocks.forEach(function (element, i) {
