@@ -41,6 +41,3 @@ RobotMenu.prototype.animate = function () {
     }
 };
 
-//   RobotMenu.prototype.stop = function() {
-
-//   }

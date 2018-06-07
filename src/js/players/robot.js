@@ -22,7 +22,7 @@ function Robot(ctx, stateGame) {
     
     this.jumpCount = 0;
     this.isOnPlatform = false;
-    this.isJump= false;
+    this.isJump = false;
 };
 Robot.prototype.checkColisions = function (blocks) {
 
@@ -36,14 +36,22 @@ Robot.prototype.checkColisions = function (blocks) {
             (this.x + 100 <= block.x + block.w)) {
             //character in platform
             this.isOnPlatform = true
+            this.isJump = false;
+            
         }
 
     });
-    console.log(this.isOnPlatform);
 
-    if (this.isOnPlatform) {
-       this.vy = 0;
+    
+    
+    if (this.isOnPlatform && this.jump) {
+        this.vy = 0;
+    }else{
+        this.y -= this.vy;
+        this.vy -= this.g;
     }
+ 
+    
 }
 
 Robot.prototype.draw = function (blocks) {
@@ -57,7 +65,7 @@ Robot.prototype.draw = function (blocks) {
 
     this.drawCountIdle++;
     
-    this.robotJumpHandler();
+    //this.robotJumpHandler();
 
     this.checkColisions(blocks);
 
@@ -69,11 +77,12 @@ Robot.prototype.jump = function () {
     // if(this.jumpCount === 2 && this.isOnPlatform){
     //     this.jumpCount = 0;       
     // } 
-    console.log(this.vy);
+    //console.log(this.vy);
     // if(this.jumpCount < 2){
     //if (this.isOnPlatform) {
-        this.jumpCount++;
+        //this.jumpCount++;
         this.vy += this.v;
+        this.isJump = true;
    // }
     // else {
     //     this.vy += this.v;
@@ -81,19 +90,6 @@ Robot.prototype.jump = function () {
     // } 
     //} 
 };
-
-
-Robot.prototype.robotJumpHandler = function () {
-    this.y -= this.vy;
-
-    if (!this.isOnPlatform) {
-        this.isJump = true;
-        this.vy -= this.g;
-    } else {
-        this.isJump = false;
-        this.vy = 0;
-    }
-}
 
 Robot.prototype.isJumping = function () {
     return this.y < this.ground;

@@ -16,7 +16,8 @@ function IndexGame (){
     canvasCityMiddle : document.getElementById("canvasbackgroundCity"),
     canvasMoon : document.getElementById("canvasbackgroundMoon"),
     canvasGame : document.getElementById("canvasGame"),
-    canvasChooseCharacterRobot : document.getElementById("chooseRobot")
+    canvasChooseCharacterRobot : document.getElementById("chooseRobot"),
+    canvasChooseCharacterRobot_2 : document.getElementById("chooseRobot_2")
   };
   this.backGrounds = new BackGrounds(
     this.canvas.canvasFloor, 
@@ -24,7 +25,7 @@ function IndexGame (){
     this.canvas.canvasCityMiddle, 
     this.canvas.canvasMoon
   );
-  this.chooseCharacter = new ChooseCharacter(this.canvas.canvasChooseCharacterRobot);
+  this.chooseCharacter = new ChooseCharacter(this.canvas.canvasChooseCharacterRobot,this.canvas.canvasChooseCharacterRobot_2);
   this.localStorageScore = new LocalStorageScore();
   
 }
@@ -54,7 +55,7 @@ IndexGame.prototype.selectLeftChracter = function () {
 };
 
 IndexGame.prototype.selectRightcharacter = function() {
-  this.selectPlayer = 'human';
+  this.selectPlayer = 'robot';
   
   $('.character-two').addClass('selected-player');
   $('.character-one').removeClass('selected-player');
