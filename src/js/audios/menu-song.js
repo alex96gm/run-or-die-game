@@ -15,6 +15,7 @@ MenuSong.prototype.playSongMenuFirst = function(){
 
 MenuSong.prototype.playSongMenu = function(){
     this.song.play();
+    this.song.mute(true);
 
 }
 

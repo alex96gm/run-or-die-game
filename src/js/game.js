@@ -41,7 +41,7 @@ Game.prototype.start = function () {
 
     this.drawCharacter();
     this.animateCharacter();
-    this.checkColisions();
+    //this.checkColisions();
     
     this.checkGameOver();
 
@@ -149,28 +149,5 @@ Game.prototype.gameOver = function(){
   }); 
 }
 
-Game.prototype.checkColisions = function(){
-  var isOnPlatform = true;
-  this.blocks.forEach((block,i) => {
-    
-    if(
-      (this.robot.y <= block.y) && 
-      (this.robot.y + this.robot.h <= block.y) && 
-      (this.robot.x + this.robot.w >= block.x) && 
-      (this.robot.x <= block.x + block.w + this.robot.w)){
-        //character in platform
-        //debugger
-        isOnPlatform = true
-    }else{
-      isOnPlatform = false
-    }
-    
-    if(!isOnPlatform){  
-     
-    }
-    
-  });
-  
-}
 
 
