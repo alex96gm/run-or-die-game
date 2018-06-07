@@ -5,12 +5,12 @@ function Robot(ctx) {
     this.h = 110;
 
     this.x = 100;
+
     this.ground = 420 - this.h;
     this.y = this.ground;
+    this.vy = 3;
 
-    this.vy = 0;
-    this.v = 20;
-    this.g = 1;
+    this.g = 0.8;
 
     this.img = new Image();
     this.img.src = "./src/assets/spritesRobot/idle/idle_000.png";
@@ -24,32 +24,7 @@ function Robot(ctx) {
     this.isOnPlatform = false;
     this.isJump = false;
 };
-Robot.prototype.checkColisions = function (blocks) {
 
-    this.isOnPlatform = false;
-
-    blocks.forEach((block, i) => {
-        if (
-            (this.y <= block.y) &&
-            (this.y + this.h <= block.y) &&
-            (this.x + this.w - 100 >= block.x) &&
-            (this.x + 100 <= block.x + block.w)) {
-            //character in platform
-            this.isOnPlatform = true
-            this.isJump = false;
-            
-        }
-
-    });
-
-    if (this.isOnPlatform && this.jump) {
-        this.vy = 0;
-    }else{
-        this.y -= this.vy;
-        this.vy -= this.g;
-    }
-    
-}
 
 Robot.prototype.draw = function (blocks) {
     this.ctx.drawImage(
@@ -61,31 +36,47 @@ Robot.prototype.draw = function (blocks) {
     );
 
     this.drawCountIdle++;
-    
-    //this.robotJumpHandler();
 
     this.checkColisions(blocks);
-
+    this.jumpHandler();
     this.checkGameOver();
+    
 };
 
+Robot.prototype.jumpHandler = function() {
+    this.y += this.vy;
+    
+    if (this.y < this.ground) {
+        this.vy += this.g;
+    } else {
+        this.vy = 0;
+        this.y = this.ground;
+    }
+}
+
+Robot.prototype.checkColisions = function (blocks) {
+    this.isOnPlatform = false;
+
+    blocks.forEach((block, i) => {
+        if ((this.x - 100 <= block.x + block.w) &&
+        (this.x - 100 + this.w >= block.x) &&
+        (this.y + this.h <= block.y))
+        {
+            this.isOnPlatform = true;
+            this.ground = block.y - this.h;
+        } else {
+            this.isOnPlatform = false;
+            //this.ground = this.ctx.canvas.height + 200
+        }
+    });
+
+    console.log(this.isOnPlatform)
+}
+
 Robot.prototype.jump = function () {
-
-    // if(this.jumpCount === 2 && this.isOnPlatform){
-    //     this.jumpCount = 0;       
-    // } 
-
-    // if(this.jumpCount < 2){
-    //if (this.isOnPlatform) {
-        //this.jumpCount++;
-        this.vy += this.v;
-        this.isJump = true;
-   // }
-    // else {
-    //     this.vy += this.v;
-    //     this.jumpCount++;
-    // } 
-    //} 
+    if (this.y === this.ground) {
+        this.vy -= 20;
+    }
 };
 
 Robot.prototype.isJumping = function () {
