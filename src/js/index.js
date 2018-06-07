@@ -4,6 +4,7 @@ window.onload = function () {
     indexGame.setClickListeners();
     indexGame.backGrounds.start();
     indexGame.chooseCharacter.start();
+    indexGame.menuSong.playSongMenuFirst();
 };
 
 function IndexGame (){
@@ -27,7 +28,8 @@ function IndexGame (){
   );
   this.chooseCharacter = new ChooseCharacter(this.canvas.canvasChooseCharacterRobot,this.canvas.canvasChooseCharacterRobot_2);
   this.localStorageScore = new LocalStorageScore();
-  
+
+  this.toggleIntro = true;
 }
 
 IndexGame.prototype.setKeyBoardListeners = function(){
@@ -38,6 +40,14 @@ IndexGame.prototype.setKeyBoardListeners = function(){
         break;
       case 39:
         this.selectRightcharacter();
+        break;
+        case 13:
+          console.log(this.toggleIntro);
+          console.log(this.selectPlayer);
+          if(this.selectPlayer && this.toggleIntro){
+            this.startGame();
+            this.toggleIntro = false
+          }
         break;
     }
   }.bind(this));
@@ -55,7 +65,7 @@ IndexGame.prototype.selectLeftChracter = function () {
 };
 
 IndexGame.prototype.selectRightcharacter = function() {
-  this.selectPlayer = 'robot';
+  this.selectPlayer = 'robot_2';
   
   $('.character-two').addClass('selected-player');
   $('.character-one').removeClass('selected-player');
@@ -67,7 +77,7 @@ IndexGame.prototype.selectRightcharacter = function() {
 
 IndexGame.prototype.setClickListeners = function(){
 
-  this.startGame();
+  this.startGameClick();
   
   this.selectCharacter();
 
@@ -82,8 +92,13 @@ IndexGame.prototype.setClickListeners = function(){
   this.gameOverTryAgain();
 }
 
-IndexGame.prototype.startGame = function(){
+IndexGame.prototype.startGameClick = function(){
   $(".start-game").on("click", function () {
+    this.startGame();
+  }.bind(this));
+}
+
+IndexGame.prototype.startGame = function(){
     if (this.selectPlayer) {
       $(".start-view").slideToggle(function () {
         $(".div-canvas-game").slideToggle()
@@ -100,7 +115,7 @@ IndexGame.prototype.startGame = function(){
       this.game.start();
       this.menuSong.stopSongMenu();
     }
-  }.bind(this));
+
 }
 
 IndexGame.prototype.selectCharacter = function() { 
@@ -128,8 +143,10 @@ IndexGame.prototype.highScoreToMenu = function() {
   $('.go-to-menu-high-score.button28').on("click", function () {
     $(".high-scores").slideToggle(function () {
       $(".start-view").slideToggle();
-    });
-  });
+      this.toggleIntro = true;
+    }.bind(this));
+  }.bind(this));
+  
 }
 
 IndexGame.prototype.gameToMenu = function() {
@@ -158,8 +175,10 @@ IndexGame.prototype.gameOverToMenu = function() {
   $('.go-to-menu').on("click", function () {
     $(".game-over-view").slideToggle(function () {
       $(".start-view").slideToggle();
-    });
-  });
+      this.toggleIntro = true;
+    }.bind(this));
+  }.bind(this));
+  
 }
 
 IndexGame.prototype.gameOverTryAgain = function() {

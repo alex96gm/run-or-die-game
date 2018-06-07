@@ -5,18 +5,18 @@ function MenuSong (){
         autoplay: true,
         loop: true,
         volume: 0.5,
-        preload:true
+        preload:false
       });
 
 }
-MenuSong.prototype.playSongMenuFirst = function(){
-        this.song.play();  
+MenuSong.prototype.playSongMenuFirst = function(){   
+
+    this.song.play();
 }
 
 MenuSong.prototype.playSongMenu = function(){
-    this.song.play();
-    this.song.mute(true);
 
+    this.song.play();
 }
 
 MenuSong.prototype.stopSongMenu = function(){

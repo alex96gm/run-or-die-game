@@ -1,4 +1,4 @@
-function Game(canvasElement, backGroundsElement, selectPlayer , localStorage, menuSong) {
+function Game(canvasElement, backGroundsElement, selectPlayer, localStorage, menuSong) {
   this.ctx = canvasElement.getContext("2d");
   this.backGroundsElement = backGroundsElement;
   this.intervalId = null;
@@ -16,10 +16,16 @@ function Game(canvasElement, backGroundsElement, selectPlayer , localStorage, me
 
   this.scoreObject = new Score(this.ctx);
   this.localStorage = localStorage;
-  this.robot = new Robot(this.ctx, this.state);
+
+  if (this.selectPlayer === 'robot') {
+    this.robot = new Robot(this.ctx);
+  } else {
+    this.robot = new Robot_2(this.ctx);
+  }
+
 
   this.addListeners();
-  
+
   this.gameSong = new GameSong;
   this.menuSong = menuSong
 }
@@ -34,15 +40,15 @@ Game.prototype.start = function () {
     this.generateBlocks();
     this.deleteBlocks();
 
-    if(this.state === 'gameMove'){
+    if (this.state === 'gameMove') {
       this.scoreObject.draw();
     }
-    
+
 
     this.drawCharacter();
     this.animateCharacter();
     //this.checkColisions();
-    
+
     this.checkGameOver();
 
     //this.moveAll();
@@ -60,16 +66,11 @@ Game.prototype.finish = function () {
 
 
 Game.prototype.drawCharacter = function () {
-  if (this.selectPlayer === "robot") {
-    this.robot.draw(this.blocks);
-  }
-
+  this.robot.draw(this.blocks);
 }
 
 Game.prototype.animateCharacter = function () {
-  if (this.selectPlayer === "robot") {
     this.robot.animate(this.state);
-  }
 }
 
 Game.prototype.clear = function () {
@@ -113,40 +114,38 @@ Game.prototype.addListeners = function () {
           this.state = 'gameMove';
           this.backGroundsElement.start();
         } else {
-          if (this.selectPlayer === "robot") {
-            this.robot.jump();
-          }
+          this.robot.jump();
         }
         break;
     }
   }.bind(this));
 };
 
-Game.prototype.checkGameOver = function(){
-  if(this.robot.checkGameOver()){
+Game.prototype.checkGameOver = function () {
+  if (this.robot.checkGameOver()) {
     this.gameOver();
   }
 }
 
-Game.prototype.gameOver = function(){
+Game.prototype.gameOver = function () {
   this.menuSong.playSongMenu();
   var scores = this.finish();
-  
-  if(!this.localStorage.getScore()){
+
+  if (!this.localStorage.getScore()) {
     $(".label-score").text('NEW HIGH SCORE: ');
-  }else{
-    if(scores.score > this.localStorage.getScore()[0].score){
+  } else {
+    if (scores.score > this.localStorage.getScore()[0].score) {
       $(".label-score").text('NEW HIGH SCORE: ');
-    }else{
+    } else {
       $(".label-score").text('SCORE: ');
     }
   }
-  
+
   $(".score-number").text(scores.score);
   this.localStorage.setScore(scores.player, scores.score);
   $(".div-canvas-game").slideToggle(function () {
     $(".game-over-view").slideToggle();
-  }); 
+  });
 }
 
 

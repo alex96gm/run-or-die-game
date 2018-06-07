@@ -157,8 +157,8 @@
   }
 
   #chooseRobot {
-      width: 100%;
-      height: 100%;
+    left: calc(50% - 95px);
+    top: calc(50% - 67px);
   }
   #chooseRobot_2{
     left: calc(50% - 45px);

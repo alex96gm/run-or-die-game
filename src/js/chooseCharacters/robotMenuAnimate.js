@@ -34,7 +34,7 @@ RobotMenu.prototype.animate = function () {
 
         this.img.frameIndex++;
 
-        if (this.img.frameIndex > this.img.frames) {
+        if (this.img.frameIndex >= this.img.frames) {
             this.img.frameIndex = 0;
         }      
         this.drawCount = 0;

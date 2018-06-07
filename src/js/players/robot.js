@@ -1,4 +1,4 @@
-function Robot(ctx, stateGame) {
+function Robot(ctx) {
     this.ctx = ctx;
 
     this.w = 170;
@@ -42,15 +42,12 @@ Robot.prototype.checkColisions = function (blocks) {
 
     });
 
-    
-    
     if (this.isOnPlatform && this.jump) {
         this.vy = 0;
     }else{
         this.y -= this.vy;
         this.vy -= this.g;
     }
- 
     
 }
 
@@ -77,7 +74,7 @@ Robot.prototype.jump = function () {
     // if(this.jumpCount === 2 && this.isOnPlatform){
     //     this.jumpCount = 0;       
     // } 
-    //console.log(this.vy);
+
     // if(this.jumpCount < 2){
     //if (this.isOnPlatform) {
         //this.jumpCount++;
