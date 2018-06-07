@@ -47,17 +47,22 @@ Game.prototype.start = function () {
 
     if (this.state === 'gameMove') {
       this.scoreObject.draw();
+      
     }
 
 
     this.drawCharacter();
     this.animateCharacter();
-    //this.checkColisions();
+    this.checkColisions();
 
     this.checkGameOver();
 
   }.bind(this), 16);
 };
+
+Game.prototype.checkColisions =  function() {
+  this.robot.checkColisions(this.blocks);
+}
 
 Game.prototype.finish = function () {
   clearInterval(this.intervalId);
@@ -70,7 +75,7 @@ Game.prototype.finish = function () {
 
 
 Game.prototype.drawCharacter = function () {
-  this.robot.draw(this.blocks);
+  this.robot.draw();
 }
 
 Game.prototype.animateCharacter = function () {
@@ -84,14 +89,17 @@ Game.prototype.clear = function () {
 };
 
 Game.prototype.generateBlocks = function () {
-  var max = 120,
+  
+  if (this.state === 'gameMove') {
+    var max = 120,
     min = 50;
+    var random = Math.floor(Math.random() * (max - min + 1) + min);
 
-  var random = Math.floor(Math.random() * (max - min + 1) + min);
-
-  if (this.framesPassed % random === 0) {
-    this.blocks.push(new Blocks(this.ctx));
-    this.framesPassed = 0;
+    if (this.framesPassed % random === 0) {
+      this.blocks.push(new Blocks(this.ctx));
+      this.framesPassed = 0;
+    }
+    
   }
 
   this.blocks.forEach(element => {

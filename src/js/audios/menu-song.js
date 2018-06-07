@@ -5,7 +5,7 @@ function MenuSong (){
         autoplay: true,
         loop: true,
         volume: 0.5,
-        preload:false
+        preload:true
       });
 
 }

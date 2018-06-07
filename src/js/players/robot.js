@@ -22,11 +22,12 @@ function Robot(ctx) {
     
     this.jumpCount = 0;
     this.isOnPlatform = false;
-    this.isJump = false;
+
+    this.isJumping = false;
 };
 
 
-Robot.prototype.draw = function (blocks) {
+Robot.prototype.draw = function () {
     this.ctx.drawImage(
         this.img,
         this.x,
@@ -37,51 +38,68 @@ Robot.prototype.draw = function (blocks) {
 
     this.drawCountIdle++;
 
-    this.checkColisions(blocks);
     this.jumpHandler();
     this.checkGameOver();
-    
 };
 
 Robot.prototype.jumpHandler = function() {
     this.y += this.vy;
-    
-    if (this.y < this.ground) {
+    if (this.isJumping) {
         this.vy += this.g;
-    } else {
-        this.vy = 0;
-        this.y = this.ground;
     }
 }
 
-Robot.prototype.checkColisions = function (blocks) {
-    this.isOnPlatform = false;
+Robot.prototype.checkColisions = function(blocks) {
 
-    blocks.forEach((block, i) => {
-        if ((this.x - 100 <= block.x + block.w) &&
-        (this.x - 100 + this.w >= block.x) &&
-        (this.y + this.h <= block.y))
-        {
-            this.isOnPlatform = true;
-            this.ground = block.y - this.h;
-        } else {
-            this.isOnPlatform = false;
-            //this.ground = this.ctx.canvas.height + 200
+    var collitions = blocks.filter(function(block) {
+        return block.collide(this);
+    }.bind(this));
+
+    console.log(collitions);
+
+    collitions.forEach(function(block) {
+        if (block instanceof Blocks) {
+            this.collideWithBlock(block);
         }
-    });
+    }.bind(this));
 
-    console.log(this.isOnPlatform)
+    if (collitions.length === 0) {
+        this.vy = 10;
+    }
+
+    // this.isOnPlatform = false;
+
+    // blocks.forEach((block, i) => {
+    //     if ((this.x + 100 <= block.x + block.w) && //right
+    //     (this.x + this.w >= block.x) && //left
+    //     (this.y + this.h <= block.y)) //top
+    //     {
+    //         this.isOnPlatform = true;
+    //         this.ground = block.y - this.h;
+    //     } else {
+    //         this.isOnPlatform = false;
+    //         //this.ground = this.ctx.canvas.height + 200
+    //     }        
+    // });
+}
+
+Robot.prototype.collideWithBlock = function(block) {
+    if (this.y + this.h >= block.y && this.y + this.h <= block.y + 4 && this.x + this.w >= block.x && this.x <= block.x + block.w) {
+        this.vy = 0;
+        this.y = block.y - this.h;
+        this.isJumping = false;
+    } else if (this.y >= block.y + block.h) {
+        this.y = block.y + block.h;
+    }
 }
 
 Robot.prototype.jump = function () {
-    if (this.y === this.ground) {
-        this.vy -= 20;
+    if (!this.isJumping) {
+        this.vy -= 100;
+        this.isJumping = true;
     }
 };
 
-Robot.prototype.isJumping = function () {
-    return this.y < this.ground;
-};
 
 Robot.prototype.animate = function (stateGame) {
     if (this.drawCountIdle % this.img.animateEveryIdle === 0) {
@@ -92,7 +110,7 @@ Robot.prototype.animate = function (stateGame) {
                 this.idleAnimate();
                 break;
             case 'gameMove':
-                if (this.isOnPlatform) {
+                if (this.y === this.ground) {
                     this.runAnimate();
                 } else {
                     this.img.frameIndex = 0;

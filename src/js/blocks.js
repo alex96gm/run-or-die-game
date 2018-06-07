@@ -26,7 +26,6 @@ function Blocks(ctx, x, y, w, url) {
 
   this.x = x || this.ctx.canvas.width;
   this.y = y || this.blockYArray[Math.floor(Math.random() * this.blockYArray.length)];
-
   this.w = w || this.type.w;
   this.h = 32;
 
@@ -46,3 +45,10 @@ Blocks.prototype.draw = function () {
 Blocks.prototype.move = function() {
   this.x += this.vx;
 };
+
+Blocks.prototype.collide = function(object) {
+  return !(this.x + this.w < object.x ||
+    this.x > object.x + object.w ||
+    this.y + this.h < object.y || 
+    this.y > object.y + object.h);
+}

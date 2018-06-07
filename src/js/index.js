@@ -42,8 +42,6 @@ IndexGame.prototype.setKeyBoardListeners = function(){
         this.selectRightcharacter();
         break;
         case 13:
-          console.log(this.toggleIntro);
-          console.log(this.selectPlayer);
           if(this.selectPlayer && this.toggleIntro){
             this.startGame();
             this.toggleIntro = false
