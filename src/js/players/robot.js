@@ -10,7 +10,7 @@ function Robot(ctx) {
     this.y = this.ground;
     this.vy = 3;
 
-    this.g = 0.8;
+    this.g = 0.5;
 
     this.img = new Image();
     this.img.src = "./src/assets/spritesRobot/idle/idle_000.png";
@@ -19,7 +19,7 @@ function Robot(ctx) {
 
     this.img.animateEveryIdle = 5;
     this.drawCountIdle = 0;
-    
+
     this.jumpCount = 0;
     this.isOnPlatform = false;
 
@@ -42,22 +42,22 @@ Robot.prototype.draw = function () {
     this.checkGameOver();
 };
 
-Robot.prototype.jumpHandler = function() {
+Robot.prototype.jumpHandler = function () {
     this.y += this.vy;
     if (this.isJumping) {
         this.vy += this.g;
     }
 }
 
-Robot.prototype.checkColisions = function(blocks) {
+Robot.prototype.checkColisions = function (blocks) {
 
-    var collitions = blocks.filter(function(block) {
+    var collitions = blocks.filter(function (block) {
         return block.collide(this);
     }.bind(this));
 
-    console.log(collitions);
+    //console.log(collitions);
 
-    collitions.forEach(function(block) {
+    collitions.forEach(function (block) {
         if (block instanceof Blocks) {
             this.collideWithBlock(block);
         }
@@ -66,36 +66,37 @@ Robot.prototype.checkColisions = function(blocks) {
     if (collitions.length === 0) {
         this.vy = 10;
     }
-
-    // this.isOnPlatform = false;
-
-    // blocks.forEach((block, i) => {
-    //     if ((this.x + 100 <= block.x + block.w) && //right
-    //     (this.x + this.w >= block.x) && //left
-    //     (this.y + this.h <= block.y)) //top
-    //     {
-    //         this.isOnPlatform = true;
-    //         this.ground = block.y - this.h;
-    //     } else {
-    //         this.isOnPlatform = false;
-    //         //this.ground = this.ctx.canvas.height + 200
-    //     }        
-    // });
 }
 
-Robot.prototype.collideWithBlock = function(block) {
-    if (this.y + this.h >= block.y && this.y + this.h <= block.y + 4 && this.x + this.w >= block.x && this.x <= block.x + block.w) {
-        this.vy = 0;
-        this.y = block.y - this.h;
+Robot.prototype.collideWithBlock = function (block) {
+    // if (
+    //     this.y + this.h >= block.y
+    //      && this.y + this.h <= block.y + 4 
+    //      && this.x + this.w >= block.x 
+    //      && this.x <= block.x + block.w) {
+    //     this.vy = 0;
+    //     this.y = block.y - this.h;
+    //     this.isJumping = false;
+    // } else if (this.y >= block.y + block.h) {
+    //     this.y = block.y + block.h;
+    // }
+
+
+
+    if (this.y + this.h <= block.y + (block.h / 2)) {
+        this.vy = 0;  
+        //this.y = block.y - this.h;
         this.isJumping = false;
-    } else if (this.y >= block.y + block.h) {
-        this.y = block.y + block.h;
+    } else if (this.y + this.h >= block.y + (block.h / 2)) {
+        //this.y = block.y - this.h;
+        this.isJumping = false;
     }
+    console.log(this.isJumping);
 }
 
 Robot.prototype.jump = function () {
     if (!this.isJumping) {
-        this.vy -= 100;
+        this.vy -= 15;
         this.isJumping = true;
     }
 };
