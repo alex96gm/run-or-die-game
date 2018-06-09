@@ -1,17 +1,18 @@
 
 function MenuSong (){
     this.song = new Howl({
-        src: ['./src/audios/menu_audio.mp3'],
+        src: ['src/audios/menu_audio.mp3'],
         autoplay: true,
         loop: true,
         volume: 0.5,
         preload:true
       });
+    
+      // Clear listener after first call.
+    this.song.once('load', function(){
+        debugger;
+    });
 
-}
-MenuSong.prototype.playSongMenuFirst = function(){   
-
-    this.song.play();
 }
 
 MenuSong.prototype.playSongMenu = function(){

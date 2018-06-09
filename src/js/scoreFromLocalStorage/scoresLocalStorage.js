@@ -6,9 +6,9 @@ LocalStorageScore.prototype.getScore = function() {
     return JSON.parse(localStorage.getItem('highScores'));;
 }
 
-LocalStorageScore.prototype.setScore = function (player, score) {
+LocalStorageScore.prototype.setScore = function (player, score , bitcoin) {
     var highScores = [];
-    var objToPush = { player: player, date: getDate(), score: score };
+    var objToPush = { player: player, date: getDate(), score: score , bitcoin: bitcoin};
     var scoreObject = JSON.parse(localStorage.getItem('highScores'));
 
     if (scoreObject) {

@@ -1,8 +1,8 @@
 function Robot(ctx) {
     this.ctx = ctx;
 
-    this.w = 170;
-    this.h = 110;
+    this.w = 80;
+    this.h = 110
 
     this.x = 100;
 
@@ -20,16 +20,18 @@ function Robot(ctx) {
     this.img.animateEveryIdle = 5;
     this.drawCountIdle = 0;
 
+    this.bitcoins = 0;
     this.jumpCount = 0;
-    this.isOnPlatform = false;
-
-    this.isJumping = false;
 };
 
 
 Robot.prototype.draw = function () {
     this.ctx.drawImage(
         this.img,
+        this.img.width * 0.35,
+        0,
+        this.img.width * 0.44,
+        this.img.height,
         this.x,
         this.y,
         this.w,
@@ -42,63 +44,77 @@ Robot.prototype.draw = function () {
     this.checkGameOver();
 };
 
-Robot.prototype.jumpHandler = function () {
-    this.y += this.vy;
-    if (this.isJumping) {
-        this.vy += this.g;
-    }
+Robot.prototype.getBitCoins = function () {
+    return this.bitcoins;
 }
 
-Robot.prototype.checkColisions = function (blocks) {
+Robot.prototype.checkColisions = function (blocks, coins) {
+    this.checkWithBlocks(blocks);
+    this.checkWithCoins(coins);  
+}
 
+Robot.prototype.checkWithBlocks = function(blocks){
     var collitions = blocks.filter(function (block) {
         return block.collide(this);
     }.bind(this));
 
-    //console.log(collitions);
-
     collitions.forEach(function (block) {
-        if (block instanceof Blocks) {
-            this.collideWithBlock(block);
-        }
+        this.collideWithBlock(block);
     }.bind(this));
 
     if (collitions.length === 0) {
-        this.vy = 10;
+        this.ground = this.ctx.canvas.height * 2;
+    }
+}
+
+Robot.prototype.checkWithCoins = function(coins){
+    coins.forEach((coin,i) => {
+        if(coin.collide(this)){
+            coins.splice(i,1);
+            this.bitcoins++;
+        }
+    });
+}
+
+Robot.prototype.jumpHandler = function () {
+    this.y += this.vy;
+
+    if (this.isJumping()) {
+        this.vy += this.g;
+    } else {
+        this.vy = 0;
     }
 }
 
 Robot.prototype.collideWithBlock = function (block) {
-    // if (
-    //     this.y + this.h >= block.y
-    //      && this.y + this.h <= block.y + 4 
-    //      && this.x + this.w >= block.x 
-    //      && this.x <= block.x + block.w) {
-    //     this.vy = 0;
-    //     this.y = block.y - this.h;
-    //     this.isJumping = false;
-    // } else if (this.y >= block.y + block.h) {
-    //     this.y = block.y + block.h;
-    // }
-
-
-
-    if (this.y + this.h <= block.y + (block.h / 2)) {
-        this.vy = 0;  
-        //this.y = block.y - this.h;
-        this.isJumping = false;
-    } else if (this.y + this.h >= block.y + (block.h / 2)) {
-        //this.y = block.y - this.h;
-        this.isJumping = false;
+    if (this.y + this.h >= block.y) { //top
+        this.ground = block.y - this.h;
+        this.y = this.ground;
+    } else if (this.y >= block.y + block.h) { //bottom
+        debugger;
+        this.vy = 0;
+        this.ground = this.ctx.canvas.height * 2;
+    } else if (this.x + this.w >= block.x) { // left
+        this.vy = 0;
+        this.ground = this.ctx.canvas.height * 2;
+    } else {
+        this.ground = this.ctx.canvas.height * 2;
     }
-    console.log(this.isJumping);
 }
 
 Robot.prototype.jump = function () {
-    if (!this.isJumping) {
-        this.vy -= 15;
-        this.isJumping = true;
+    if (this.jumpCount >= 2 && !this.isJumping()) {
+        this.jumpCount = 0;
     }
+
+    if (this.jumpCount != 2) {
+        this.vy -= 15;
+        this.jumpCount++;
+    }
+};
+
+Robot.prototype.isJumping = function () {
+    return this.y < this.ground;
 };
 
 
@@ -111,7 +127,7 @@ Robot.prototype.animate = function (stateGame) {
                 this.idleAnimate();
                 break;
             case 'gameMove':
-                if (this.y === this.ground) {
+                if (!this.isJumping()) {
                     this.runAnimate();
                 } else {
                     this.img.frameIndex = 0;

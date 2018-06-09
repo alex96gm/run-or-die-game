@@ -1,16 +1,22 @@
-function Coins(ctx) {
+function Coins(ctx , x, y) {
   this.ctx = ctx;
 
   this.img = new Image();
 
   this.img.src = './src/assets/coins.png';
 
-  this.x = 30;
-  this.y = 30;
+  
 
   this.w = 50;
   this.h = 50;
 
+  this.coinsArray = [420 - this.h, 180 - this.h];
+  this.x = x || this.ctx.canvas.width;
+  this.y = y || this.coinsArray[Math.floor(Math.random() * this.coinsArray.length)];;
+
+  
+
+  this.vx = -2.5;
 
   this.img.frames = 4;
   this.img.frameIndex = 0;
@@ -20,6 +26,8 @@ function Coins(ctx) {
 
   this.img.animateEvery = 5;
   this.drawCount = 0;
+
+  this.colliding = false;
 }
 
 Coins.prototype.draw = function () {
@@ -52,3 +60,18 @@ Coins.prototype.animate = function () {
     this.img.frameIndex = 0
   }
 };
+
+Coins.prototype.move = function() {
+  this.x += this.vx;
+};
+
+Coins.prototype.collide = function(object) {
+  this.colliding = !(
+    this.x + this.w < object.x ||
+    this.x > object.x + object.w ||
+    this.y + this.h < object.y || 
+    this.y > object.y + object.h
+  );
+
+  return this.colliding;
+}

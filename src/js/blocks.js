@@ -30,6 +30,8 @@ function Blocks(ctx, x, y, w, url) {
   this.h = 32;
 
   this.vx = -2.5;
+
+  this.colliding = false;
 }
 
 Blocks.prototype.draw = function () {
@@ -40,6 +42,7 @@ Blocks.prototype.draw = function () {
     this.w,
     this.h
   );
+
 };
 
 Blocks.prototype.move = function() {
@@ -47,8 +50,12 @@ Blocks.prototype.move = function() {
 };
 
 Blocks.prototype.collide = function(object) {
-  return !(this.x + this.w < object.x ||
+  this.colliding = !(
+    this.x + this.w < object.x ||
     this.x > object.x + object.w ||
     this.y + this.h < object.y || 
-    this.y > object.y + object.h);
+    this.y > object.y + object.h
+  );
+
+  return this.colliding;
 }

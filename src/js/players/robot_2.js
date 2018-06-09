@@ -1,7 +1,7 @@
 function Robot_2(ctx) {
   this.ctx = ctx;
 
-  this.w = 60;
+  this.w = 80;
   this.h = 110;
 
   this.x = 100;
@@ -9,8 +9,8 @@ function Robot_2(ctx) {
   this.y = this.ground;
 
   this.vy = 0;
-  this.v = 20;
-  this.g = 1;
+  this.v = 3;
+  this.g = 0.5;
 
   this.img = new Image();
   this.img.src = "./src/assets/spritesRobot_2/idle/Idle_000.png";
@@ -20,76 +20,96 @@ function Robot_2(ctx) {
   this.img.animateEveryIdle = 5;
   this.drawCountIdle = 0;
   
+  this.bitcoins = 0;
   this.jumpCount = 0;
-  this.isOnPlatform = false;
-  this.isJump = false;
 };
 
-Robot_2.prototype.checkColisions = function (blocks) {
 
-  this.isOnPlatform = false;
-
-  blocks.forEach((block, i) => {
-      if (
-          (this.y <= block.y) &&
-          (this.y + this.h <= block.y) &&
-          (this.x + this.w >= block.x) &&
-          (this.x <= block.x + block.w)) {
-          //character in platform
-          this.isOnPlatform = true
-          this.isJump = false;
-          
-      }
-
-  });
-
-  if (this.isOnPlatform && this.jump) {
-      this.vy = 0;
-  }else{
-      this.y -= this.vy;
-      this.vy -= this.g;
-  }
-  
-}
 
 Robot_2.prototype.draw = function (blocks) {
-  this.ctx.drawImage(
-      this.img,
-      this.x,
-      this.y,
-      this.w,
-      this.h
-  );
+    this.ctx.drawImage(
+        this.img,
+        this.x,
+        this.y,
+        this.w,
+        this.h
+    );
 
-  this.drawCountIdle++;
-  
-  //this.robotJumpHandler();
+    this.drawCountIdle++;
 
-  this.checkColisions(blocks);
-
-  this.checkGameOver();
+    this.jumpHandler();
+    this.checkGameOver();
 };
+Robot_2.prototype.checkColisions = function (blocks, coins) {
+    this.checkWithBlocks(blocks);
+    this.checkWithCoins(coins);  
+}
 
+Robot_2.prototype.checkWithBlocks = function(blocks){
+    var collitions = blocks.filter(function (block) {
+        return block.collide(this);
+    }.bind(this));
+
+    collitions.forEach(function (block) {
+        this.collideWithBlock(block);
+    }.bind(this));
+
+    if (collitions.length === 0) {
+        this.ground = this.ctx.canvas.height * 2;
+    }
+}
+
+Robot_2.prototype.checkWithCoins = function(coins){
+    coins.forEach((coin,i) => {
+        if(coin.collide(this)){
+            coins.splice(i,1);
+            this.bitcoins++;
+        }
+    });
+}
+
+Robot_2.prototype.jumpHandler = function () {
+    this.y += this.vy;
+
+    if (this.isJumping()) {
+        this.vy += this.g;
+    } else {
+        this.vy = 0;
+    }
+
+}
+
+Robot_2.prototype.collideWithBlock = function (block) {
+    if (this.y + this.h >= block.y) { //top
+        this.ground = block.y - this.h;
+        this.y = this.ground;
+    } else if (this.y >= block.y + block.h) { //bottom
+        debugger;
+        this.vy = 0;
+        this.ground = this.ctx.canvas.height * 2;
+    } else if (this.x + this.w >= block.x) { // left
+        this.vy = 0;
+        this.ground = this.ctx.canvas.height * 2;
+    } else {
+        this.ground = this.ctx.canvas.height * 2;
+    }
+}
 Robot_2.prototype.jump = function () {
+    if (this.jumpCount >= 2 && !this.isJumping()) {
+        this.jumpCount = 0;
+    }
 
-  // if(this.jumpCount === 2 && this.isOnPlatform){
-  //     this.jumpCount = 0;       
-  // } 
-
-  // if(this.jumpCount < 2){
-  //if (this.isOnPlatform) {
-      //this.jumpCount++;
-      this.vy += this.v;
-      //this.isJump = true;
- // }
-  // else {
-  //     this.vy += this.v;
-  //     this.jumpCount++;
-  // } 
-  //} 
+    if (this.jumpCount != 2) {
+        this.vy -= 15;
+        this.jumpCount++;
+    }
 };
 
-Robot.prototype.isJumping = function () {
+Robot_2.prototype.getBitCoins = function () {
+    return this.bitcoins;
+}
+
+Robot_2.prototype.isJumping = function () {
   return this.y < this.ground;
 };
 
@@ -101,7 +121,7 @@ Robot_2.prototype.animate = function (stateGame) {
               this.idleAnimate();
               break;
           case 'gameMove':
-              if (this.isOnPlatform) {
+              if (!this.isJumping()) {
                   this.runAnimate();
               } else {
                   this.img.frameIndex = 0;

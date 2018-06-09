@@ -4,7 +4,7 @@ window.onload = function () {
     indexGame.setClickListeners();
     indexGame.backGrounds.start();
     indexGame.chooseCharacter.start();
-    indexGame.menuSong.playSongMenuFirst();
+    indexGame.menuSong.playSongMenu();
 };
 
 function IndexGame (){
@@ -205,9 +205,10 @@ IndexGame.prototype.setScoreTable = function(scores) {
       var $td1 = $("<div></div>").text(element.player);
       var $td2 = $("<div></div>").text(element.date);
       var $td3 = $("<div></div>").text(element.score);
+      var $td4 = $("<div></div>").text(element.bitcoin);
       var $div = $("<div></div>");
 
-      var $scoreRow = $div.append($td0, $td1, $td2, $td3);
+      var $scoreRow = $div.append($td0, $td1, $td2, $td3,$td4);
       $('.body').append($scoreRow)
     });
   }
