@@ -52,7 +52,7 @@ IndexGame.prototype.setKeyBoardListeners = function(){
 }
 
 IndexGame.prototype.selectLeftChracter = function () {
-  this.selectPlayer = 'robot';
+  this.selectPlayer = 'C-2PO';
 
   $('.character-one').addClass('selected-player');
   $('.character-two').removeClass('selected-player');
@@ -63,7 +63,7 @@ IndexGame.prototype.selectLeftChracter = function () {
 };
 
 IndexGame.prototype.selectRightcharacter = function() {
-  this.selectPlayer = 'robot_2';
+  this.selectPlayer = 'C-4PO';
   
   $('.character-two').addClass('selected-player');
   $('.character-one').removeClass('selected-player');

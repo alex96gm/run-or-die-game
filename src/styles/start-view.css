@@ -165,5 +165,11 @@
     top: calc(50% - 67px);
   }
 
+  .name-player-one , .name-player-two{
+    position: absolute;
+    top: calc(50% + 90px);
+    left: calc(50% - 36px);
+    font-size: 25px;
+  }
 
     

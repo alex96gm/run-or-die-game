@@ -27,7 +27,7 @@ function Game(canvasElement, backGroundsElement, selectPlayer, localStorage, men
   this.bitcoinScore = new BitcoinScore(this.ctx);
   this.localStorage = localStorage;
 
-  if (this.selectPlayer === 'robot') {
+  if (this.selectPlayer === 'C-2PO') {
     this.robot = new Robot(this.ctx);
   } else {
     this.robot = new Robot_2(this.ctx);
