@@ -10,10 +10,18 @@ function RobotMenu(ctx) {
     this.img.src = "./src/assets/spritesRobot/walk/walk_000.png";
     this.img.frames = 21;
     this.img.frameIndex = 0;
+    this.img.framesReady = 0;
 
     this.img.isReady = false;
+
     this.img.onload = function () {
-        this.img.isReady = true;
+        if (this.img.framesReady === this.img.frames) {
+            this.img.isReady = true;
+        } else {
+            this.img.framesReady++;
+            var frame = this.img.framesReady.toString().padStart(3, ['0']);
+            this.img.src = "./src/assets/spritesRobot/walk/walk_" + frame + ".png";
+        }
     }.bind(this);
 
     this.img.animateEvery = 2;
@@ -45,10 +53,11 @@ RobotMenu.prototype.animate = function () {
 
         this.img.frameIndex++;
 
-        if (this.img.frameIndex >= this.img.frames) {
+        if (this.img.frameIndex > this.img.frames) {
             this.img.frameIndex = 0;
         }
         this.drawCount = 0;
     }
+
 };
 

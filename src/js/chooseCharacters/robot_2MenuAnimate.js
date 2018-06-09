@@ -16,6 +16,17 @@ function RobotMenu_2(ctx) {
 
   this.img.frames = 3;
   this.img.frameIndex = 0;
+  this.img.framesReady = 0;
+  
+  this.img.onload = function () {
+    if (this.img.framesReady === this.img.frames - 1) {
+      this.img.isReady = true;
+    } else {
+      this.img.framesReady++;
+      var frame = this.img.framesReady.toString().padStart(3, ['0']);
+      this.img.src = "./src/assets/spritesRobot_2/dab/DabDance_" + frame + ".png";
+    }
+  }.bind(this);
 
   this.img.animateEvery = 8;
   this.drawCount = 0;
