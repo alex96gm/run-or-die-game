@@ -108,7 +108,7 @@ Game.prototype.clear = function () {
 Game.prototype.generateBlocks = function () {
   
   if (this.state === 'gameMove') {
-    var max = 100,
+    var max = 60,
         min = 30;
     var random = Math.floor(Math.random() * (max - min + 1) + min);
 
