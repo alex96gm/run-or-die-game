@@ -1,7 +1,7 @@
 function Robot_2(ctx) {
   this.ctx = ctx;
 
-  this.w = 80;
+  this.w = 70;
   this.h = 110;
 
   this.x = 100;
