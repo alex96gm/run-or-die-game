@@ -7,12 +7,6 @@ function MenuSong (){
         volume: 0.5,
         preload:true
       });
-    
-      // Clear listener after first call.
-    this.song.once('load', function(){
-        debugger;
-    });
-
 }
 
 MenuSong.prototype.playSongMenu = function(){

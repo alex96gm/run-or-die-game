@@ -108,8 +108,8 @@ Game.prototype.clear = function () {
 Game.prototype.generateBlocks = function () {
   
   if (this.state === 'gameMove') {
-    var max = 120,
-        min = 50;
+    var max = 100,
+        min = 30;
     var random = Math.floor(Math.random() * (max - min + 1) + min);
 
     if (this.framesPassed % random === 0) {
