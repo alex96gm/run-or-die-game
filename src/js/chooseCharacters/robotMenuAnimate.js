@@ -18,6 +18,7 @@ function RobotMenu(ctx) {
         if (this.img.framesReady === this.img.frames) {
            $('.div-loading').hide();
             this.img.isReady = true;
+            //this.img.src = "./src/assets/spritesRobot/walk/walk_000.png";
         } else {
             this.img.framesReady++;
             var frame = this.img.framesReady.toString().padStart(3, ['0']);
@@ -36,6 +37,7 @@ RobotMenu.prototype.isReady = function () {
 
 RobotMenu.prototype.draw = function () {
     if (this.isReady()) {
+        //console.log(this.img.src);
         this.ctx.drawImage(
             this.img,
             this.x,

@@ -16,6 +16,23 @@ function Robot(ctx) {
     this.img.src = "./src/assets/spritesRobot/idle/idle_000.png";
     this.img.frames = 14;
     this.img.frameIndex = 0;
+    this.img.framesReady = 0;
+
+    this.img.isReady = false;
+
+    this.img.onload = function () {
+        if(this.img.isReady === false){
+            if (this.img.framesReady === this.img.frames) {
+                $('.div-loading').hide();
+                this.img.src = "./src/assets/spritesRobot/idle/idle_000.png";
+                this.img.isReady = true;
+            } else {
+                this.img.framesReady++;
+                var frame = this.img.framesReady.toString().padStart(3, ['0']);
+                this.img.src = "./src/assets/spritesRobot/idle/idle_" + frame + ".png";
+            }
+        } 
+    }.bind(this);
 
     this.img.animateEveryIdle = 5;
     this.drawCountIdle = 0;
@@ -24,24 +41,29 @@ function Robot(ctx) {
     this.jumpCount = 0;
 };
 
+Robot.prototype.isReady = function () {
+    return this.img.isReady;
+}
 
 Robot.prototype.draw = function () {
-    this.ctx.drawImage(
-        this.img,
-        this.img.width * 0.35,
-        0,
-        this.img.width * 0.44,
-        this.img.height,
-        this.x,
-        this.y,
-        this.w,
-        this.h
-    );
+    if (this.isReady()) {
+        this.ctx.drawImage(
+            this.img,
+            this.img.width * 0.35,
+            0,
+            this.img.width * 0.44,
+            this.img.height,
+            this.x,
+            this.y,
+            this.w,
+            this.h
+        );
 
-    this.drawCountIdle++;
+        this.drawCountIdle++;
 
-    this.jumpHandler();
-    this.checkGameOver();
+        this.jumpHandler();
+        this.checkGameOver();
+    }
 };
 
 Robot.prototype.getBitCoins = function () {
@@ -50,10 +72,10 @@ Robot.prototype.getBitCoins = function () {
 
 Robot.prototype.checkColisions = function (blocks, coins) {
     this.checkWithBlocks(blocks);
-    this.checkWithCoins(coins);  
+    this.checkWithCoins(coins);
 }
 
-Robot.prototype.checkWithBlocks = function(blocks){
+Robot.prototype.checkWithBlocks = function (blocks) {
     var collitions = blocks.filter(function (block) {
         return block.collide(this);
     }.bind(this));
@@ -67,10 +89,10 @@ Robot.prototype.checkWithBlocks = function(blocks){
     }
 }
 
-Robot.prototype.checkWithCoins = function(coins){
-    coins.forEach((coin,i) => {
-        if(coin.collide(this)){
-            coins.splice(i,1);
+Robot.prototype.checkWithCoins = function (coins) {
+    coins.forEach((coin, i) => {
+        if (coin.collide(this)) {
+            coins.splice(i, 1);
             this.bitcoins++;
         }
     });
