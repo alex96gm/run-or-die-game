@@ -22,14 +22,19 @@
   <link rel="stylesheet" type="text/css" href="./src/styles/canvas-game-view.css">
 
   <link rel="stylesheet" type="text/css" href="./src/styles/high-score-button.css">
+  <link rel="stylesheet" type="text/css" href="./src/styles/loading.css">
   <title>Run or die</title>
 </head>
 
 <body>
+  
   <video id="video_background" playsinline autoplay muted loop>
     <source src="http://gluepack.com/pruebas/assets/img/video_background%20run%20_or_die.mp4" type="video/mp4">
   </video>
   <div class="position-container">
+    <div class="div-loading">
+        <div class="loading"></div>
+    </div>
     <div class="start-view">
       <div class="title-game">
         <object type="image/svg+xml" data="./src/assets/RunOrDie.svg"></object>

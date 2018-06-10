@@ -16,6 +16,7 @@ function RobotMenu(ctx) {
 
     this.img.onload = function () {
         if (this.img.framesReady === this.img.frames) {
+           $('.div-loading').hide();
             this.img.isReady = true;
         } else {
             this.img.framesReady++;
