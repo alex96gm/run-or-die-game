@@ -7,7 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
   <link rel="icon" href="./src/icons/run-or-die-icon.ico">
-  
+
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
     crossorigin="anonymous">
@@ -16,7 +16,7 @@
   <link rel="stylesheet" type="text/css" href="./src/styles/iHover.min.css">
   <link rel="stylesheet" type="text/css" href="./src/styles/canvas.css">
   <link rel="stylesheet" type="text/css" href="./src/styles/start-view.css">
-  
+
   <link rel="stylesheet" type="text/css" href="./src/styles/game-over-view.css">
   <link rel="stylesheet" type="text/css" href="./src/styles/high-scores.css">
   <link rel="stylesheet" type="text/css" href="./src/styles/canvas-game-view.css">
@@ -27,7 +27,7 @@
 
 <body>
   <video id="video_background" playsinline autoplay muted loop>
-      <source src="http://gluepack.com/pruebas/assets/img/video_background%20run%20_or_die.mp4" type="video/mp4">
+    <source src="http://gluepack.com/pruebas/assets/img/video_background%20run%20_or_die.mp4" type="video/mp4">
   </video>
   <div class="position-container">
     <div class="start-view">
@@ -35,20 +35,22 @@
         <object type="image/svg+xml" data="./src/assets/RunOrDie.svg"></object>
       </div>
 
-      <div class="selectedCharacterText selectedLeft"><span>Selected</span></div>
+      <div class="selectedCharacterText selectedLeft">
+        <span>Selected</span>
+      </div>
       <div>
         <div class="image-character character-one" style="cursor: pointer">
-          <canvas id ="chooseRobot" width="175" height="135" class="canvasRobot"> </canvas>
+          <canvas id="chooseRobot" width="175" height="135" class="canvasRobot"> </canvas>
           <div class="name-player-one">C-2PO</div>
         </div>
       </div>
       <div>
         <div class="image-character character-two" style="cursor: pointer">
-          <canvas id ="chooseRobot_2" width="120" height="140" class="canvasRobot"> </canvas>
+          <canvas id="chooseRobot_2" width="120" height="140" class="canvasRobot"> </canvas>
           <div class="name-player-two">C-4PO</div>
         </div>
       </div>
-      
+
 
       <div class="start-game-button">
         <div class="ih-item circle effect2 left_to_right" style="cursor: pointer">
@@ -64,7 +66,9 @@
           </a>
         </div>
       </div>
-      <div class="sim-button button28"><span>HIGH SCORES</span></div>
+      <div class="sim-button button28">
+        <span>HIGH SCORES</span>
+      </div>
     </div>
 
     <canvas id="canvasbackgroundMoon" width="1200" height="500"> </canvas>
@@ -73,62 +77,81 @@
     <canvas id="canvasbackgroundFloor" width="1200" height="500"> </canvas>
     <canvas id="canvasGame" width="1200" height="500"> </canvas>
     <div class="div-canvas-game">
-      <div class="go-to-menu-canvas button28"><span>GO TO MENU</span></div>
+      <div class="go-to-menu-canvas button28">
+        <span>GO TO MENU</span>
+      </div>
     </div>
 
     <div class="game-over-view">
       <div class="game-over">GAME OVER</div>
-      <div class="score"><span class="label-score"></span><span class="score-number">3000</span></div>
+      <div class="score">
+        <span class="label-score"></span>
+        <span class="score-number">3000</span>
+      </div>
       <div class="buttons">
-        <div class="ih-item circle effect13 top_to_bottom go-to-menu" style="cursor: pointer;"><a>
-          <div class="img"><img src="./src/assets/labelHover.jpg" alt="img"></div>
+        <div class="ih-item circle effect13 top_to_bottom go-to-menu" style="cursor: pointer;">
+          <a>
+            <div class="img">
+              <img src="./src/assets/labelHover.jpg" alt="img">
+            </div>
             <div class="info">
               <div class="info-back">
                 <h3 class="game-over-h3">GO TO MENU</h3>
               </div>
             </div>
-          </a></div>
-          <div class="sim-button-game-over button28"><span>HIGH SCORES</span></div>
-          <div class="ih-item circle effect13 top_to_bottom try-again" style="cursor: pointer;"><a>
-            <div class="img"><img src="./src/assets/labelHover.jpg" alt="img"></div>
+          </a>
+        </div>
+        <div class="sim-button-game-over button28">
+          <span>HIGH SCORES</span>
+        </div>
+        <div class="ih-item circle effect13 top_to_bottom try-again" style="cursor: pointer;">
+          <a>
+            <div class="img">
+              <img src="./src/assets/labelHover.jpg" alt="img">
+            </div>
             <div class="info">
               <div class="info-back">
-                <h3 class="game-over-h3" >TRY AGAIN</h3>
+                <h3 class="game-over-h3">TRY AGAIN</h3>
               </div>
             </div>
-          </a></div>
-      </div>   
+          </a>
+        </div>
+      </div>
     </div>
 
     <div class="high-scores">
       <div class="high-score">HIGH SCORES</div>
-      <div class="go-to-menu-high-score  button28"><span>BACK TO MENU</span></div>
+      <div class="go-to-menu-high-score  button28">
+        <span>BACK TO MENU</span>
+      </div>
       <div class="table-div">
-          <div class="head">
-              <div scope="col">#</div>
-              <div scope="col">PLAYER</div>
-              <div scope="col">DATE</div>
-              <div scope="col" class="orderByScore">SCORE</div>
-              <div scope="col" class="orderByBitcoins">BITCOINS</div>
-          </div>
-          
-          <div class= "body">
-            
-          </div> 
+        <div class="head">
+          <div scope="col">#</div>
+          <div scope="col">PLAYER</div>
+          <div scope="col">DATE</div>
+          <div scope="col" class="orderByScore">SCORE</div>
+          <div scope="col" class="orderByBitcoins">BITCOINS</div>
+        </div>
+
+        <div class="body">
+
+        </div>
       </div>
     </div>
   </div>
   <!-- Optional JavaScript -->
   <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-  
+
   <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
     crossorigin="anonymous"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
     crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.0.12/howler.core.min.js"></script>
-    <!-- https://cdnjs.cloudflare.com/ajax/libs/buzz/1.2.1/buzz.min.js" -->
-  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.0.12/howler.core.min.js"></script>
+  <!-- https://cdnjs.cloudflare.com/ajax/libs/buzz/1.2.1/buzz.min.js" -->
+
+  <script type="text/javascript" src="./src/js/scoreFromLocalStorage/scoresLocalStorage.js"></script>
+  <script type="text/javascript" src="./src/js/scoreFromLocalStorage/webSql.js"></script>
   <script src="./src/js/index.js"></script>
   <script src="./src/js/game.js"></script>
 
