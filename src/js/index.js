@@ -5,6 +5,8 @@ window.onload = function () {
     indexGame.backGrounds.start();
     indexGame.chooseCharacter.start();
     indexGame.menuSong.playSongMenu();
+    indexGame.dataBase.Table();
+    indexGame.dataBase.ClearDB();
 };
 
 function IndexGame (){
@@ -27,7 +29,8 @@ function IndexGame (){
     this.canvas.canvasMoon
   );
   this.chooseCharacter = new ChooseCharacter(this.canvas.canvasChooseCharacterRobot,this.canvas.canvasChooseCharacterRobot_2);
-  this.localStorageScore = new LocalStorageScore();
+  this.dataBase = new DataBase();
+  
 
   this.toggleIntro = true;
 }
@@ -81,10 +84,10 @@ IndexGame.prototype.setClickListeners = function(){
 
   this.highScoreToMenu();
 
-  this.menuToHighScore(this.localStorageScore);
-  this.gameOverToHighScore(this.localStorageScore);
+  this.menuToHighScore();
+  this.gameOverToHighScore();
 
-  this.gameToMenu(this.localStorageScore);
+  this.gameToMenu();
   this.gameOverToMenu();
 
   this.gameOverTryAgain();
@@ -106,7 +109,7 @@ IndexGame.prototype.startGame = function(){
         this.canvas.canvasGame, 
         this.backGrounds, 
         this.selectPlayer, 
-        this.localStorageScore,
+        this.dataBase,
         this.menuSong
       );
 
@@ -131,7 +134,11 @@ IndexGame.prototype.menuToHighScore = function(){
   $('.sim-button.button28').on("click", function () {
     $(".start-view").slideToggle(function () {
       $(".high-scores").slideToggle();
-      this.setScoreTable(this.localStorageScore.getScore());
+      this.dataBase.Select().then(
+        function(data){
+          this.setScoreTable(data)
+        }.bind(this)
+      );  
     }.bind(this));
   }.bind(this));
 }
@@ -155,7 +162,8 @@ IndexGame.prototype.gameToMenu = function() {
     
     this.menuSong.playSongMenu();
     var scores = this.game.finish();
-    this.localStorageScore.setScore(scores.player, scores.score);
+
+    this.dataBase.Insert(scores.player, scores.score , scores.bitcoin)
   }.bind(this));
 }
 
@@ -164,7 +172,11 @@ IndexGame.prototype.gameOverToHighScore = function() {
   $('.sim-button-game-over').on("click", function () {
     $(".game-over-view").slideToggle(function () {
       $(".high-scores").slideToggle();
-      this.setScoreTable(this.localStorageScore.getScore());
+      this.dataBase.Select().then(
+        function(data){
+          this.setScoreTable(data)
+        }.bind(this)
+      );  
     }.bind(this));
   }.bind(this));
 }
@@ -190,7 +202,7 @@ IndexGame.prototype.gameOverTryAgain = function() {
         this.canvas.canvasGame, 
         this.backGrounds, 
         this.selectPlayer, 
-        this.localStorageScore,
+        this.dataBase,
         this.menuSong
       );
       this.game.start();
@@ -200,17 +212,18 @@ IndexGame.prototype.gameOverTryAgain = function() {
 IndexGame.prototype.setScoreTable = function(scores) {
   if (scores) {
     $(".body").empty();
-    scores.forEach((element, i) => {
+    for (let i = 0; i < scores.length; i++) {
       var $td0 = $("<div></div>").text(i + 1);
-      var $td1 = $("<div></div>").text(element.player);
-      var $td2 = $("<div></div>").text(element.date);
-      var $td3 = $("<div></div>").text(element.score);
-      var $td4 = $("<div></div>").text(element.bitcoin);
+      var $td1 = $("<div></div>").text(scores[i].name);
+      var $td2 = $("<div></div>").text(scores[i].date);
+      var $td3 = $("<div></div>").text(scores[i].score);
+      var $td4 = $("<div></div>").text(scores[i].bitcoins);
       var $div = $("<div></div>");
 
       var $scoreRow = $div.append($td0, $td1, $td2, $td3,$td4);
       $('.body').append($scoreRow)
-    });
+      
+    }
   }
 }
 

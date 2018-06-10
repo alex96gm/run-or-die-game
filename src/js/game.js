@@ -1,4 +1,4 @@
-function Game(canvasElement, backGroundsElement, selectPlayer, localStorage, menuSong) {
+function Game(canvasElement, backGroundsElement, selectPlayer, dataBase, menuSong) {
   this.ctx = canvasElement.getContext("2d");
   this.backGroundsElement = backGroundsElement;
   this.intervalId = null;
@@ -6,7 +6,7 @@ function Game(canvasElement, backGroundsElement, selectPlayer, localStorage, men
   this.framesPassed = 0;
   this.framesPassedCoins = 0;
   this.selectPlayer = selectPlayer;
-  
+
   this.blocks = [
     new Blocks(this.ctx, 80, 420, 400, './src/assets/block-long.png'),
     new Blocks(this.ctx, 700, 420, 400, './src/assets/block-long.png'),
@@ -16,16 +16,16 @@ function Game(canvasElement, backGroundsElement, selectPlayer, localStorage, men
   ]
 
   this.coins = [
-    new Coins(this.ctx,840,130),
-    new Coins(this.ctx,590,130),
-    new Coins(this.ctx,1095,130),
-    new Coins(this.ctx,920,370),
+    new Coins(this.ctx, 840, 130),
+    new Coins(this.ctx, 590, 130),
+    new Coins(this.ctx, 1095, 130),
+    new Coins(this.ctx, 920, 370),
   ]
 
   this.scoreObject = new Score(this.ctx);
   this.bitcoin = new Bitcoin(this.ctx);
   this.bitcoinScore = new BitcoinScore(this.ctx);
-  this.localStorage = localStorage;
+  this.dataBase = dataBase;
 
   if (this.selectPlayer === 'C-2PO') {
     this.robot = new Robot(this.ctx);
@@ -66,7 +66,7 @@ Game.prototype.start = function () {
   }.bind(this), 16);
 };
 
-Game.prototype.checkColisions =  function() {
+Game.prototype.checkColisions = function () {
   this.robot.checkColisions(this.blocks, this.coins);
 }
 
@@ -76,7 +76,7 @@ Game.prototype.finish = function () {
   this.ctx.clearRect(
     0, 0, this.ctx.canvas.width, this.ctx.canvas.height
   );
-  return { player: this.selectPlayer, score: this.scoreObject.score , bitcoin: this.bitcoinScore.bitcoin}
+  return { player: this.selectPlayer, score: this.scoreObject.score, bitcoin: this.bitcoinScore.bitcoin }
 };
 
 Game.prototype.drawScores = function () {
@@ -87,7 +87,7 @@ Game.prototype.drawScores = function () {
   }
 }
 
-Game.prototype.setBitcoinsScore =  function(){
+Game.prototype.setBitcoinsScore = function () {
   this.bitcoinScore.bitcoin = this.robot.getBitCoins()
 }
 
@@ -96,7 +96,7 @@ Game.prototype.drawCharacter = function () {
 }
 
 Game.prototype.animateCharacter = function () {
-    this.robot.animate(this.state);
+  this.robot.animate(this.state);
 }
 
 Game.prototype.clear = function () {
@@ -106,16 +106,16 @@ Game.prototype.clear = function () {
 };
 
 Game.prototype.generateBlocks = function () {
-  
+
   if (this.state === 'gameMove') {
     var max = 60,
-        min = 30;
+      min = 30;
     var random = Math.floor(Math.random() * (max - min + 1) + min);
 
     if (this.framesPassed % random === 0) {
       this.blocks.push(new Blocks(this.ctx));
       this.framesPassed = 0;
-    }    
+    }
   }
 
   this.blocks.forEach(element => {
@@ -126,24 +126,24 @@ Game.prototype.generateBlocks = function () {
   });
 };
 
-Game.prototype.generateCoins = function(){
+Game.prototype.generateCoins = function () {
 
   if (this.state === 'gameMove') {
     var max = 90,
-        min = 50;
+      min = 50;
     var random = Math.floor(Math.random() * (max - min + 1) + min);
 
     if (this.framesPassedCoins % random === 0) {
       this.coins.push(new Coins(this.ctx));
       this.framesPassed = 0;
-    } 
+    }
   }
 
   this.coins.forEach(element => {
     element.draw();
     if (this.state !== 'gameStopped') {
       element.move();
-    }  
+    }
   });
 }
 
@@ -180,21 +180,31 @@ Game.prototype.gameOver = function () {
   this.menuSong.playSongMenu();
   var scores = this.finish();
 
-  if (!this.localStorage.getScore()) {
-    $(".label-score").text('NEW HIGH SCORE: ');
-  } else {
-    if (scores.score > this.localStorage.getScore()[0].score) {
+
+  this.dataBase.Select().then(
+    function (data) {
+      setTextGameOver(data);
+    }.bind(this)
+  );
+
+  setTextGameOver = function(data) {
+    if (!data.length) {
       $(".label-score").text('NEW HIGH SCORE: ');
     } else {
-      $(".label-score").text('SCORE: ');
+      if (scores.score > data[0].score) {
+        $(".label-score").text('NEW HIGH SCORE: ');
+      } else {
+        $(".label-score").text('SCORE: ');
+      }
     }
-  }
 
-  $(".score-number").text(scores.score);
-  this.localStorage.setScore(scores.player, scores.score, scores.bitcoin);
-  $(".div-canvas-game").slideToggle(function () {
-    $(".game-over-view").slideToggle();
-  });
+    $(".score-number").text(scores.score);
+    //insert bbdd
+    this.dataBase.Insert(scores.player, scores.score, scores.bitcoin)
+    $(".div-canvas-game").slideToggle(function () {
+      $(".game-over-view").slideToggle();
+    });
+  }.bind(this);
 }
 
 
