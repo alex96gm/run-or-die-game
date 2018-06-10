@@ -20,19 +20,19 @@ function Robot(ctx) {
 
     this.img.isReady = false;
 
-    this.img.onload = function () {
-        if(this.img.isReady === false){
-            if (this.img.framesReady === this.img.frames) {
-                $('.div-loading').hide();
-                this.img.src = "./src/assets/spritesRobot/idle/idle_000.png";
-                this.img.isReady = true;
-            } else {
-                this.img.framesReady++;
-                var frame = this.img.framesReady.toString().padStart(3, ['0']);
-                this.img.src = "./src/assets/spritesRobot/idle/idle_" + frame + ".png";
-            }
-        } 
-    }.bind(this);
+    // this.img.onload = function () {
+    //     if(this.img.isReady === false){
+    //         if (this.img.framesReady === this.img.frames) {
+    //             $('.div-loading').hide();
+    //             this.img.src = "./src/assets/spritesRobot/idle/idle_000.png";
+    //             this.img.isReady = true;
+    //         } else {
+    //             this.img.framesReady++;
+    //             var frame = this.img.framesReady.toString().padStart(3, ['0']);
+    //             this.img.src = "./src/assets/spritesRobot/idle/idle_" + frame + ".png";
+    //         }
+    //     } 
+    // }.bind(this);
 
     this.img.animateEveryIdle = 5;
     this.drawCountIdle = 0;
@@ -46,7 +46,7 @@ Robot.prototype.isReady = function () {
 }
 
 Robot.prototype.draw = function () {
-    if (this.isReady()) {
+    // if (this.isReady()) {
         this.ctx.drawImage(
             this.img,
             this.img.width * 0.35,
@@ -63,7 +63,7 @@ Robot.prototype.draw = function () {
 
         this.jumpHandler();
         this.checkGameOver();
-    }
+    //}
 };
 
 Robot.prototype.getBitCoins = function () {
