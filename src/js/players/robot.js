@@ -55,12 +55,14 @@ function Robot(ctx) {
 };
 
 Robot.prototype.isReady = function () {
+    if(this.img.isReady){
+        $('.div-loading').hide();
+    }  
     return this.img.isReady
 }
 
 Robot.prototype.draw = function () {
     if (this.isReady()) {
-        $('.div-loading').hide();
         this.ctx.drawImage(
             this.img,
             this.img.width * 0.35,
