@@ -159,11 +159,13 @@ Game.prototype.addListeners = function () {
   $(document).keydown(function (event) {
     switch (event.keyCode) {
       case 32:
-        if (this.state === 'gameStopped') {
-          this.state = 'gameMove';
-          this.backGroundsElement.start();
-        } else {
-          this.robot.jump();
+        if(this.robot.isReady()){
+          if (this.state === 'gameStopped') {
+            this.state = 'gameMove';
+            this.backGroundsElement.start();
+          } else {
+            this.robot.jump();
+          }
         }
         break;
     }

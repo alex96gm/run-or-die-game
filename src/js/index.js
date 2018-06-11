@@ -98,7 +98,7 @@ IndexGame.prototype.startGameClick = function(){
 
 IndexGame.prototype.startGame = function(){
     if (this.selectPlayer) {
-      //$('.div-loading').show();
+      $('.div-loading').show();
       $(".start-view").slideToggle(function () {
         $(".div-canvas-game").slideToggle()   
       });

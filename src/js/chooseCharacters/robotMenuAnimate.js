@@ -37,7 +37,6 @@ RobotMenu.prototype.isReady = function () {
 
 RobotMenu.prototype.draw = function () {
     if (this.isReady()) {
-        //console.log(this.img.src);
         this.ctx.drawImage(
             this.img,
             this.x,
