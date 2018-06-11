@@ -38,5 +38,8 @@ ChooseCharacter.prototype.animateCharacter = function () {
   if ($('.character-two').hasClass('selected-player')) {
     this.robot_2.animate();
   }
-
 };
+
+ChooseCharacter.prototype.finish = function () {
+  clearInterval(this.intervalId);
+}

@@ -98,9 +98,10 @@ IndexGame.prototype.startGameClick = function(){
 
 IndexGame.prototype.startGame = function(){
     if (this.selectPlayer) {
-      $('.div-loading').show();
+      this.chooseCharacter.finish();
       $(".start-view").slideToggle(function () {
-        $(".div-canvas-game").slideToggle()   
+        $(".div-canvas-game").slideToggle();
+        $('.div-loading').show();   
       });
 
       this.game = new Game(
@@ -151,6 +152,7 @@ IndexGame.prototype.highScoreToMenu = function() {
 IndexGame.prototype.gameToMenu = function() {
   $('.go-to-menu-canvas.button28').on("click", function () {
     $(".div-canvas-game").slideToggle(function () {
+      this.chooseCharacter.start();
       $(".start-view").slideToggle();
     });
     
@@ -165,6 +167,7 @@ IndexGame.prototype.gameOverToHighScore = function() {
   $('.sim-button-game-over').on("click", function () {
     $(".game-over-view").slideToggle(function () {
       $(".high-scores").slideToggle();
+      this.chooseCharacter.start();
       this.setScoreTable(this.localStorageScore.getScore());
     }.bind(this));
   }.bind(this));
@@ -174,6 +177,7 @@ IndexGame.prototype.gameOverToMenu = function() {
   $('.go-to-menu').on("click", function () {
     $(".game-over-view").slideToggle(function () {
       $(".start-view").slideToggle();
+      this.chooseCharacter.start();
       this.toggleIntro = true;
     }.bind(this));
   }.bind(this));

@@ -62,4 +62,3 @@ RobotMenu.prototype.animate = function () {
     }
 
 };
-
