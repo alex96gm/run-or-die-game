@@ -31,12 +31,14 @@ function RobotMenu(ctx) {
 };
 
 RobotMenu.prototype.isReady = function () {
+    if(this.img.isReady){
+        $('.div-loading').hide();
+    }   
     return this.img.isReady;
 }
 
 RobotMenu.prototype.draw = function () {
     if (this.isReady()) {
-        $('.div-loading').hide();
         this.ctx.drawImage(
             this.img,
             this.x,
