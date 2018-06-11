@@ -28,7 +28,6 @@ function Robot(ctx) {
         if (this.img.framesReadyIdle === 14) {
             if (this.img.framesReadyRun === 19) {
                 if (this.img.framesReadyJump === 9) {
-                    $('.div-loading').hide();
                     this.img.isReady = true;
                 } else {
                     this.img.framesReadyJump++;
@@ -61,6 +60,7 @@ Robot.prototype.isReady = function () {
 
 Robot.prototype.draw = function () {
     if (this.isReady()) {
+        $('.div-loading').hide();
         this.ctx.drawImage(
             this.img,
             this.img.width * 0.35,
