@@ -1,51 +1,91 @@
 function Robot_2(ctx) {
-  this.ctx = ctx;
+    this.ctx = ctx;
 
-  this.w = 70;
-  this.h = 110;
+    this.w = 70;
+    this.h = 110;
 
-  this.x = 100;
-  this.ground = 420 - this.h;
-  this.y = this.ground;
+    this.x = 100;
+    this.ground = 420 - this.h;
+    this.y = this.ground;
 
-  this.vy = 0;
-  this.v = 3;
-  this.g = 0.5;
+    this.vy = 0;
+    this.v = 3;
+    this.g = 0.5;
 
-  this.img = new Image();
-  this.img.src = "./src/assets/spritesRobot_2/idle/Idle_000.png";
-  this.img.frames = 6;
-  this.img.frameIndex = 0;
+    this.img = new Image();
+    this.img.src = "./src/assets/spritesRobot_2/idle/Idle_000.png";
+    this.img.frames = 6;
+    this.img.frameIndex = 0;
 
-  this.img.animateEveryIdle = 5;
-  this.drawCountIdle = 0;
-  
-  this.bitcoins = 0;
-  this.jumpCount = 0;
+    this.img.framesReadyIdle = 0;
+    this.img.framesReadyRun = 0;
+    this.img.framesReadyJump = 0;
+
+    this.img.isReady = false;
+
+    this.img.onload = function () {
+        if (this.img.framesReadyIdle === 6) {
+            if (this.img.framesReadyRun === 8) {
+                if (this.img.framesReadyJump === 4) {
+                    this.img.isReady = true;
+                } else {
+                    this.img.framesReadyJump++;
+                    var frame = this.img.framesReadyJump.toString().padStart(3, ['0']);
+                    this.img.src = "./src/assets/spritesRobot_2/jump/Jump_" + frame + ".png";
+                }
+            } else {
+                this.img.framesReadyRun++;
+                var frame = this.img.framesReadyRun.toString().padStart(3, ['0']);
+                this.img.src = "./src/assets/spritesRobot_2/run/Run_" + frame + ".png";
+            }
+        } else {
+            this.img.framesReadyIdle++;
+            var frame = this.img.framesReadyIdle.toString().padStart(3, ['0']);
+            this.img.src = "./src/assets/spritesRobot_2/idle/Idle_" + frame + ".png";
+        }
+    }.bind(this);
+
+    this.img.animateEveryIdle = 5;
+    this.drawCountIdle = 0;
+
+    this.bitcoins = 0;
+    this.jumpCount = 0;
+
+    this.hideDiv = true;
 };
 
-
-
-Robot_2.prototype.draw = function (blocks) {
-    this.ctx.drawImage(
-        this.img,
-        this.x,
-        this.y,
-        this.w,
-        this.h
-    );
-
-    this.drawCountIdle++;
-
-    this.jumpHandler();
-    this.checkGameOver();
-};
-Robot_2.prototype.checkColisions = function (blocks, coins) {
-    this.checkWithBlocks(blocks);
-    this.checkWithCoins(coins);  
+Robot_2.prototype.isReady = function () {
+    if(this.img.isReady && this.hideDiv){
+        $('.div-loading').hide();
+        this.hideDiv = false;
+    }  
+    return this.img.isReady
 }
 
-Robot_2.prototype.checkWithBlocks = function(blocks){
+
+Robot_2.prototype.draw = function () {
+    if (this.isReady()) {
+        this.ctx.drawImage(
+            this.img,
+            this.x,
+            this.y,
+            this.w,
+            this.h
+        );
+
+        this.drawCountIdle++;
+
+        this.jumpHandler();
+        this.checkGameOver();
+    }
+};
+
+Robot_2.prototype.checkColisions = function (blocks, coins) {
+    this.checkWithBlocks(blocks);
+    this.checkWithCoins(coins);
+}
+
+Robot_2.prototype.checkWithBlocks = function (blocks) {
     var collitions = blocks.filter(function (block) {
         return block.collide(this);
     }.bind(this));
@@ -59,10 +99,10 @@ Robot_2.prototype.checkWithBlocks = function(blocks){
     }
 }
 
-Robot_2.prototype.checkWithCoins = function(coins){
-    coins.forEach((coin,i) => {
-        if(coin.collide(this)){
-            coins.splice(i,1);
+Robot_2.prototype.checkWithCoins = function (coins) {
+    coins.forEach((coin, i) => {
+        if (coin.collide(this)) {
+            coins.splice(i, 1);
             this.bitcoins++;
         }
     });
@@ -110,54 +150,56 @@ Robot_2.prototype.getBitCoins = function () {
 }
 
 Robot_2.prototype.isJumping = function () {
-  return this.y < this.ground;
+    return this.y < this.ground;
 };
 
 Robot_2.prototype.animate = function (stateGame) {
-  if (this.drawCountIdle % this.img.animateEveryIdle === 0) {
-      this.img.frameIndex++;
-      switch (stateGame) {
-          case 'gameStopped':
-              this.idleAnimate();
-              break;
-          case 'gameMove':
-              if (!this.isJumping()) {
-                  this.runAnimate();
-              } else {
-                  this.img.frameIndex = 0;
-                  this.jumpAnimate();
-              }
-              break;
-      }
-      if (this.img.frameIndex >= this.img.frames) {
-          this.img.frameIndex = 0;
-      }
-      this.drawCountIdle = 0;
-  }
+    if (this.drawCountIdle % this.img.animateEveryIdle === 0) {
+        this.img.frameIndex++;
+        switch (stateGame) {
+            case 'gameStopped':
+                this.idleAnimate();
+                break;
+            case 'gameMove':
+                if (!this.isJumping()) {
+                    this.runAnimate();
+                } else {
+                    this.jumpAnimate();
+                }
+                break;
+        }
+        if (this.img.frameIndex >= this.img.frames) {
+            this.img.frameIndex = 0;
+        }
+        this.drawCountIdle = 0;
+    }
 }
 
 Robot_2.prototype.idleAnimate = function () {
-  this.img.frames = 6;
-  var frame = this.img.frameIndex.toString().padStart(3, ['0']);
-  this.img.src = "./src/assets/spritesRobot_2/idle/Idle_" + frame + ".png";
+    this.img.frames = 6;
+    var frame = this.img.frameIndex.toString().padStart(3, ['0']);
+    this.img.src = "./src/assets/spritesRobot_2/idle/Idle_" + frame + ".png";
 }
 
 Robot_2.prototype.runAnimate = function () {
-  this.img.frames = 8;
-  this.w = 90;
-  var frame = this.img.frameIndex.toString().padStart(3, ['0']);
-  this.img.src = "./src/assets/spritesRobot_2/run/Run_" + frame + ".png";
+    this.img.frames = 8;
+    this.w = 90;
+    var frame = this.img.frameIndex.toString().padStart(3, ['0']);
+    this.img.src = "./src/assets/spritesRobot_2/run/Run_" + frame + ".png";
 }
 
 Robot_2.prototype.jumpAnimate = function () {
-  this.img.frames = 4;
-  var frame = this.img.frameIndex.toString().padStart(3, ['0']);
-  this.img.src = "./src/assets/spritesRobot_2/jump/Jump_" + frame + ".png";
+    this.img.frames = 4;
+    if(this.img.frameIndex > 4){
+        this.img.frameIndex = 0;
+    }
+    var frame = this.img.frameIndex.toString().padStart(3, ['0']);
+    this.img.src = "./src/assets/spritesRobot_2/jump/Jump_" + frame + ".png";
 }
 
 Robot_2.prototype.checkGameOver = function () {
-  if (this.y > this.ctx.canvas.height) {
-      return true;
-  }
+    if (this.y > this.ctx.canvas.height) {
+        return true;
+    }
 }
 

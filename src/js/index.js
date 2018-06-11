@@ -43,7 +43,7 @@ IndexGame.prototype.setKeyBoardListeners = function(){
         break;
         case 13:
           if(this.selectPlayer && this.toggleIntro){
-            this.startGame();
+            this.startGame();       
             this.toggleIntro = false
           }
         break;
@@ -98,7 +98,6 @@ IndexGame.prototype.startGameClick = function(){
 
 IndexGame.prototype.startGame = function(){
     if (this.selectPlayer) {
-      this.chooseCharacter.finish();
       $(".start-view").slideToggle(function () {
         $(".div-canvas-game").slideToggle(function () {
           $('.div-loading').show();  
@@ -153,7 +152,6 @@ IndexGame.prototype.highScoreToMenu = function() {
 IndexGame.prototype.gameToMenu = function() {
   $('.go-to-menu-canvas.button28').on("click", function () {
     $(".div-canvas-game").slideToggle(function () {
-      this.chooseCharacter.start();
       $(".start-view").slideToggle();
     });
     
@@ -168,8 +166,6 @@ IndexGame.prototype.gameOverToHighScore = function() {
   $('.sim-button-game-over').on("click", function () {
     $(".game-over-view").slideToggle(function () {
       $(".high-scores").slideToggle();
-      this.chooseCharacter = new ChooseCharacter(this.canvas.canvasChooseCharacterRobot,this.canvas.canvasChooseCharacterRobot_2);
-      this.chooseCharacter.start();
       this.setScoreTable(this.localStorageScore.getScore());
     }.bind(this));
   }.bind(this));
@@ -179,8 +175,6 @@ IndexGame.prototype.gameOverToMenu = function() {
   $('.go-to-menu').on("click", function () {
     $(".game-over-view").slideToggle(function () {
       $(".start-view").slideToggle();
-      this.chooseCharacter = new ChooseCharacter(this.canvas.canvasChooseCharacterRobot,this.canvas.canvasChooseCharacterRobot_2);
-      this.chooseCharacter.start();
       this.toggleIntro = true;
     }.bind(this));
   }.bind(this));
