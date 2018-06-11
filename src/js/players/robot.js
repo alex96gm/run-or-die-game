@@ -55,14 +55,12 @@ function Robot(ctx) {
 };
 
 Robot.prototype.isReady = function () {
-    if(this.img.isReady){
-        $('.div-loading').hide();
-    }  
     return this.img.isReady
 }
 
 Robot.prototype.draw = function () {
     if (this.isReady()) {
+        $('.div-loading').hide();
         this.ctx.drawImage(
             this.img,
             this.img.width * 0.35,
@@ -169,7 +167,6 @@ Robot.prototype.animate = function (stateGame) {
                 if (!this.isJumping()) {
                     this.runAnimate();
                 } else {
-                    //this.img.frameIndex = 0;
                     this.jumpAnimate();
                 }
                 break;

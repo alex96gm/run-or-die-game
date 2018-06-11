@@ -43,7 +43,7 @@ IndexGame.prototype.setKeyBoardListeners = function(){
         break;
         case 13:
           if(this.selectPlayer && this.toggleIntro){
-            this.startGame();
+            this.startGame();       
             this.toggleIntro = false
           }
         break;
