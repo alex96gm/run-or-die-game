@@ -27,11 +27,12 @@ function RobotMenu(ctx) {
 
     this.img.animateEvery = 2;
     this.drawCount = 0;
-
+    this.divHide = true;
 };
 
 RobotMenu.prototype.isReady = function () {
-    if(this.img.isReady){
+    if(this.img.isReady && divHide){
+        this.divHide = false;
         $('.div-loading').hide();
     }   
     return this.img.isReady;
