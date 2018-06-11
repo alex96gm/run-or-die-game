@@ -168,6 +168,7 @@ IndexGame.prototype.gameOverToHighScore = function() {
   $('.sim-button-game-over').on("click", function () {
     $(".game-over-view").slideToggle(function () {
       $(".high-scores").slideToggle();
+      this.chooseCharacter = new ChooseCharacter(this.canvas.canvasChooseCharacterRobot,this.canvas.canvasChooseCharacterRobot_2);
       this.chooseCharacter.start();
       this.setScoreTable(this.localStorageScore.getScore());
     }.bind(this));
@@ -178,6 +179,7 @@ IndexGame.prototype.gameOverToMenu = function() {
   $('.go-to-menu').on("click", function () {
     $(".game-over-view").slideToggle(function () {
       $(".start-view").slideToggle();
+      this.chooseCharacter = new ChooseCharacter(this.canvas.canvasChooseCharacterRobot,this.canvas.canvasChooseCharacterRobot_2);
       this.chooseCharacter.start();
       this.toggleIntro = true;
     }.bind(this));
