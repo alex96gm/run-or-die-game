@@ -16,9 +16,37 @@ function Robot(ctx) {
     this.img.src = "./src/assets/spritesRobot/idle/idle_000.png";
     this.img.frames = 14;
     this.img.frameIndex = 0;
-    this.img.framesReady = 0;
+
+    this.img.framesReadyIdle = 0;
+    this.img.framesReadyRun = 0;
+    this.img.framesReadyJump = 0;
 
     this.img.isReady = false;
+
+
+    this.img.onload = function () {
+        if (this.img.framesReadyIdle === 14) {
+            if (this.img.framesReadyRun === 19) {
+                if (this.img.framesReadyJump === 9) {
+                    $('.div-loading').hide();
+                    this.img.isReady = true;
+                } else {
+                    this.img.framesReadyJump++;
+                    var frame = this.img.framesReadyJump.toString().padStart(3, ['0']);
+                    this.img.src = "./src/assets/spritesRobot/jump/jump_" + frame + ".png";
+                }
+            } else {             
+                this.img.framesReadyRun++;
+                var frame = this.img.framesReadyRun.toString().padStart(3, ['0']);
+                this.img.src = "./src/assets/spritesRobot/running/running_" + frame + ".png";
+            }
+        } else {
+            this.img.framesReadyIdle++;
+            var frame = this.img.framesReadyIdle.toString().padStart(3, ['0']);
+            this.img.src = "./src/assets/spritesRobot/idle/idle_" + frame + ".png";
+        }
+    }.bind(this);
+
 
     this.img.animateEveryIdle = 5;
     this.drawCountIdle = 0;
@@ -28,10 +56,11 @@ function Robot(ctx) {
 };
 
 Robot.prototype.isReady = function () {
-    return this.img.isReady;
+    return this.img.isReady
 }
 
 Robot.prototype.draw = function () {
+    if (this.isReady()) {
         this.ctx.drawImage(
             this.img,
             this.img.width * 0.35,
@@ -48,6 +77,8 @@ Robot.prototype.draw = function () {
 
         this.jumpHandler();
         this.checkGameOver();
+    }
+
 };
 
 Robot.prototype.getBitCoins = function () {
@@ -136,7 +167,7 @@ Robot.prototype.animate = function (stateGame) {
                 if (!this.isJumping()) {
                     this.runAnimate();
                 } else {
-                    this.img.frameIndex = 0;
+                    //this.img.frameIndex = 0;
                     this.jumpAnimate();
                 }
                 break;
@@ -163,6 +194,9 @@ Robot.prototype.runAnimate = function () {
 
 Robot.prototype.jumpAnimate = function () {
     this.img.frames = 9;
+    if(this.img.frameIndex > 9){
+        this.img.frameIndex = 0;
+    }
     var frame = this.img.frameIndex.toString().padStart(3, ['0']);
     this.img.src = "./src/assets/spritesRobot/jump/jump_" + frame + ".png";
 }
